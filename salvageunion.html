@@ -1,0 +1,221 @@
+<script type="text/worker">
+    const buttonlist = ["pilot", "mech", "notes"];
+    buttonlist.forEach(button => {
+        on(`clicked:${button}`, function() {
+            setAttrs({
+                sheetTab: button
+            });
+        });
+    });
+    const classData = {
+      "standardClasses": [
+        {"id": "salvager", "name": "Salvager"},
+        {"id": "hacker", "name": "Hacker"},
+        {"id": "engineer", "name": "Engineer"},
+        {"id": "hauler", "name": "Hauler"},
+        {"id": "scout", "name": "Scout"},
+        {"id": "soldier", "name": "Soldier"}
+      ],
+      "advancedClasses": [
+        {"id": "cyborg", "name": "Cyborg"},
+        {"id": "fabricator", "name": "Fabricator"},
+        {"id": "union_rep", "name": "Union Rep"},
+        {"id": "smuggler", "name": "Smuggler"},
+        {"id": "ranger", "name": "Ranger"}
+      ]
+    };
+</script>
+
+<input type="hidden" class="sheet-tabstoggle" name="attr_sheetTab" value="pilot" />
+<input type="hidden" class="sheet-class-select" name="attr_class" value="salvager" />
+<input type="hidden" class="sheet-class-select" name="attr_hp" value="10" />
+<input type="hidden" class="sheet-class-select" name="attr_hp_max" value="10" />
+<input type="hidden" class="sheet-class-select" name="attr_ap" value="5" />
+<input type="hidden" class="sheet-class-select" name="attr_ap_max" value="5" />
+<input type="hidden" class="sheet-class-select" name="attr_tp" value="0" />
+<div class="sheet-tabs-wrapper">
+    <button type="action" name="act_pilot">Pilot</button>
+    <button type="action" name="act_mech">Mech</button>
+    <button type="action" name="act_notes">Notes</button>
+</div>
+<div class="sheet-stats">
+    <!-- Health Points (HP) -->
+    <div class="sheet-hp">
+        <span>
+            <label for="hp_current">HP</label>
+            <input type="number" name="attr_hp" id="hp_current" value="10" />
+        </span>
+        /
+        <span>
+            <label for="hp_max">Max HP</label>
+            <input type="number" name="attr_hp_max" id="hp_max" value="10" />
+        </span>
+    </div>
+
+    <!-- Action Points (AP) -->
+    <div class="sheet-ap">
+        <span>
+            <label for="ap_current">AP:</label>
+            <input type="number" name="attr_ap" id="ap_current" value="5" />
+        </span>
+        /
+        <span>
+            <label for="ap_max">AP Max:</label>
+            <input type="number" name="attr_ap_max" id="ap_max" value="5" />
+        </span>
+    </div>
+
+    <!-- Training Points (TP) -->
+    <div class="sheet-tp">
+        <span>
+            <label for="tp">TP:</label>
+            <input type="number" name="attr_tp" id="tp" value="0" />
+        </span>
+    </div>
+</div>
+<div class="sheet-pilot">
+    <div class="sheet-column-left">
+        <h2>Pilot</h2>
+        <span>Statistics, abilities, and inventory for your Salvage Union Pilot.</span>
+        <label for="class">Class:</label>
+        <select name="attr_class" id="class">
+            <option value="salvager">Salvager</option>
+            <option value="hacker">Hacker</option>
+            <option value="engineer">Engineer</option>
+            <option value="hauler">Hauler</option>
+            <option value="scout">Scout</option>
+            <option value="soldier">Soldier</option>
+            <option value="cyborg">Cyborg</option>
+            <option value="fabricator">Fabricator</option>
+            <option value="union_rep">Union Rep</option>
+            <option value="smuggler">Smuggler</option>
+            <option value="ranger">Ranger</option>
+        </select>
+        <!-- Pilot Information Fields -->
+        <div>
+            <label for="pilot_callsign">Callsign:</label>
+            <input type="text" name="attr_callsign" id="pilot_callsign" />
+        </div>
+        <div>
+            <label for="pilot_motto">Motto:</label>
+            <input type="text" name="attr_motto" id="pilot_motto" />
+        </div>
+        <div>
+            <label for="pilot_keepsake">Keepsake:</label>
+            <input type="text" name="attr_keepsake" id="pilot_keepsake" />
+        </div>
+        <div>
+            <label for="pilot_appearance">Appearance:</label>
+            <textarea name="attr_appearance" id="pilot_appearance"></textarea>
+        </div>
+        <div>
+            <label for="pilot_background">Background:</label>
+            <textarea name="attr_background" id="pilot_background"></textarea>
+        </div>
+    </div>
+    <div class="sheet-column-right">
+        <!-- Abilities -->
+        <div class="sheet-abilities">
+            <h3>Abilities</h3>
+            <fieldset class="repeating_abilities">
+                <div class="sheet-ability">
+                    <input type="text" name="attr_ability_name" placeholder="Name"/>
+                    <textarea name="attr_ability_description" placeholder="Description"></textarea>
+                    <input type="number" name="attr_ability_ap" placeholder="AP Value" min="0"/>
+                    <select name="attr_ability_range">
+                        <option value="Close">N/A</option>
+                        <option value="Close">Close</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Long">Long</option>
+                        <option value="Far">Far</option>
+                    </select>
+                    <select name="attr_ability_actiontype">
+                        <option value="Passive">Passive</option>
+                        <option value="Free">Free</option>
+                        <option value="Reaction">Reaction</option>
+                        <option value="Turn">Turn</option>
+                        <option value="Short">Short</option>
+                        <option value="Long">Long</option>
+                        <option value="Downtime">Downtime</option>
+                    </select>
+                </div>
+            </fieldset>
+        </div>
+
+        <!-- Inventory -->
+        <div class="sheet-inventory">
+            <h3>Inventory</h3>
+            <fieldset class="repeating_inventory">
+                <div class="sheet-inventory">
+                    <span class="inventory-item">
+                        <input type="text" name="attr_inventory_name" placeholder="Name"/>
+                        <input type="number" name="attr_inventory_count" placeholder="Count" min="0"/>
+                    </span>
+                    <textarea name="attr_inventory_description" placeholder="Description"></textarea>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<div class="sheet-mech">
+    <div class="sheet-column-left">
+        <h2>Mech</h2>
+        <div class="sheet-chassis-stats">
+            <h3>Chassis Stats</h3>
+            <div>
+                <label for="mech_chassis">Chassis:</label>
+                <input type="text" name="attr_mech_chassis" id="mech_chassis" />
+            </div>
+            <div>
+                <label for="mech_pattern">Pattern:</label>
+                <input type="text" name="attr_mech_pattern" id="mech_pattern" />
+            </div>
+            <div>
+                <label for="mech_structure_current">Structure Pts. Current:</label>
+                <input type="number" name="attr_mech_structure_current" id="mech_structure_current" />
+                <label for="mech_structure_max">Max:</label>
+                <input type="number" name="attr_mech_structure_max" id="mech_structure_max" />
+            </div>
+            <div>
+                <label for="mech_energy_current">Energy Pts. Current:</label>
+                <input type="number" name="attr_mech_energy_current" id="mech_energy_current" />
+                <label for="mech_energy_max">Max:</label>
+                <input type="number" name="attr_mech_energy_max" id="mech_energy_max" />
+            </div>
+            <div>
+                <label for="mech_heat_current">Heat Cap Current:</label>
+                <input type="number" name="attr_mech_heat_current" id="mech_heat_current" />
+                <label for="mech_heat_max">Max:</label>
+                <input type="number" name="attr_mech_heat_max" id="mech_heat_max" />
+            </div>
+            <div>
+                <label for="mech_system_slots">System Slots:</label>
+                <input type="number" name="attr_mech_system_slots" id="mech_system_slots" />
+            </div>
+            <div>
+                <label for="mech_module_slots">Module Slots:</label>
+                <input type="number" name="attr_mech_module_slots" id="mech_module_slots" />
+            </div>
+            <div>
+                <label for="mech_cargo_cap">Cargo Cap.:</label>
+                <input type="number" name="attr_mech_cargo_cap" id="mech_cargo_cap" />
+            </div>
+            <div>
+                <label for="mech_tech_level">Tech Level:</label>
+                <input type="number" name="attr_mech_tech_level" id="mech_tech_level" />
+            </div>
+            <div>
+                <label for="mech_salvage_value">Salvage Value:</label>
+                <input type="number" name="attr_mech_salvage_value" id="mech_salvage_value" />
+            </div>
+        </div>
+    </div>
+    <div class="sheet-column-right">
+        <h2>Mech</h2>
+    </div>
+</div>
+
+<div class="sheet-notes">
+    <h2>Notes</h2>
+    <span>Notes go here</span>
+</div>

@@ -1,0 +1,199 @@
+h2 {    
+    font-weight: 900;
+    font-family: 'Candal';
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+}
+
+.sheet-pilot h2 {
+    color: #F38E4B;
+}
+
+.sheet-mech h2 {
+    color: #73978E;
+}
+
+.sheet-notes h2 {
+    color: #74C9E4;
+}
+
+/* Hide all tab content by default */
+.charsheet .sheet-pilot,
+.charsheet .sheet-mech,
+.charsheet .sheet-notes {
+    display: none;
+}
+
+/* Tabs Styling */
+.charsheet .sheet-tabstoggle[value="pilot"] ~ .sheet-pilot {
+    display: flex;
+}
+
+.charsheet .sheet-tabstoggle[value="mech"] ~ .sheet-mech,
+.charsheet .sheet-tabstoggle[value="notes"] ~ .sheet-notes {
+    display: block;
+}
+
+.sheet-tabs-wrapper {
+    margin-bottom: -1px;
+}
+
+.sheet-tabs-wrapper button {    
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    font-family: 'Candal';
+    padding: 8px 12px;
+    border: 0px solid;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.sheet-tabs-wrapper button:nth-child(1) {
+    background-color: rgb(245, 245, 245);
+    color: #444;
+}
+
+input[value="pilot"] ~ div.sheet-tabs-wrapper > button:nth-child(1) {
+    background-color: #F38E4B;
+    color: #000;
+}
+
+.sheet-tabs-wrapper button:nth-child(2) {
+    background-color: rgb(245, 245, 245);
+    color: #444;
+}
+
+input[value="mech"] ~ div.sheet-tabs-wrapper > button:nth-child(2) {
+    background-color: #73978E;
+    color: #000;
+}
+
+.sheet-tabs-wrapper button:nth-child(3) {
+    background-color: rgb(245, 245, 245);
+    color: #444;
+}
+
+input[value="notes"] ~ div.sheet-tabs-wrapper > button:nth-child(3) {
+    background-color: #74C9E4;
+    color: #000;
+}
+
+.sheet-column-left,
+.sheet-column-right {
+    flex: 1;
+    background-color: white;
+    padding: 8px;
+}
+
+/* Sheet Top Stats */
+
+input[value="pilot"] ~ div.sheet-stats {
+    background-color: #F38E4B;
+}
+
+input[value="mech"] ~ div.sheet-stats {
+    background-color: #73978E;
+}
+
+input[value="notes"] ~ div.sheet-stats {
+    background-color: #74C9E4;
+}
+
+.sheet-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 8px 4px 8px;
+    z-index: 10;
+    position: relative;
+}
+
+.sheet-hp, .sheet-ap, .sheet-tp {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    max-width: 32.5%;
+    display: inline-flex;
+    padding: 4px 8px;
+    background-color: white;
+}
+
+.sheet-hp label, .sheet-ap label, .sheet-tp label,
+.sheet-hp input, .sheet-ap input, .sheet-tp input {
+    margin-bottom: 0px;
+}
+
+.sheet-pilot textarea,
+.sheet-notes textarea,
+.sheet-mech textarea {
+    max-width: 100%; /* This ensures the textarea does not exceed its parent's width */
+    width: 100%; /* This sets the textarea to fill the available space */
+    box-sizing: border-box; /* This ensures padding and borders are included in the total width and height */
+}
+
+/* Pilot Sheet */
+
+input[value="pilot"] ~ div.sheet-pilot {
+    background-color: #F38E4B;
+    padding: 8px;
+}
+
+.sheet-pilot {
+    justify-content: space-between;
+}
+
+.inventory-item {
+    display: inline-block;
+}
+
+/* Mech Sheet */
+
+input[value="mech"] ~ div.sheet-mech {
+    background-color: #73978E;
+    padding: 8px;
+}
+
+input[value="mech"] ~ div.sheet-pilot .sheet-column-left,
+input[value="mech"] ~ div.sheet-pilot .sheet-column-right {
+    background-color: white;
+    padding: 8px;
+}
+
+/* Notes Sheet */
+
+input[value="notes"] ~ div.sheet-notes {
+    background-color: #74C9E4;
+    padding: 8px;
+}
+
+input[value="notes"] ~ div.sheet-pilot .sheet-column-left,
+input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
+    background-color: white;
+    padding: 8px;
+}
+
+/* HP Bar */
+
+.sheet-hp > span,
+.sheet-ap > span,
+.sheet-tp > span {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 4px 0;
+}
+
+
+.sheet-ap span:nth-child(1),
+.sheet-hp span:nth-child(1) {
+    padding-right: 8px;
+}
+
+.sheet-ap span:nth-child(2),
+.sheet-hp span:nth-child(2) {
+    padding-left: 8px;
+}
