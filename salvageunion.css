@@ -1,23 +1,39 @@
 h2 {    
     font-weight: 900;
-    font-family: 'Candal';
+    font-family: sans-serif;
     font-size: 36px;
     text-transform: uppercase;
     letter-spacing: 4px;
     margin-bottom: 8px;
 }
 
+h3 {
+    text-transform: uppercase;
+    text-decoration: underline;
+    margin-bottom: 8px;
+}
+
 .sheet-pilot h2 {
-    color: #F38E4B;
+    color: white;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #F38E4B;
 }
 
 .sheet-mech h2 {
-    color: #73978E;
+    color: white;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #73978E;
 }
 
 .sheet-notes h2 {
-    color: #74C9E4;
+    color: white;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #74C9E4;
 }
+
+.charsheet.charactersheet img:not([src]) {
+    display: none;
+  }  
 
 /* Hide all tab content by default */
 .charsheet .sheet-pilot,
@@ -27,26 +43,27 @@ h2 {
 }
 
 /* Tabs Styling */
-.charsheet .sheet-tabstoggle[value="pilot"] ~ .sheet-pilot {
+.charsheet .sheet-tabstoggle[value="pilot"] ~ .sheet-pilot,
+.charsheet .sheet-tabstoggle[value="mech"] ~ .sheet-mech {
     display: flex;
 }
 
-.charsheet .sheet-tabstoggle[value="mech"] ~ .sheet-mech,
 .charsheet .sheet-tabstoggle[value="notes"] ~ .sheet-notes {
     display: block;
 }
 
 .sheet-tabs-wrapper {
-    margin-bottom: -1px;
+    margin-bottom: -6px;
 }
 
 .sheet-tabs-wrapper button {    
     font-size: 20px;
+    -webkit-text-stroke-width: 2px;
     font-weight: normal;
     line-height: 20px;
     text-transform: uppercase;
     letter-spacing: 0px;
-    font-family: 'Candal';
+    font-family: sans-serif;
     padding: 8px 12px;
     border: 0px solid;
     margin-right: 0px;
@@ -112,7 +129,7 @@ input[value="notes"] ~ div.sheet-stats {
     position: relative;
 }
 
-.sheet-hp, .sheet-ap, .sheet-tp {
+.sheet-hp, .sheet-ap, .sheet-tp, .sheet-heat, .sheet-sp, .sheet-ep {
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
@@ -125,6 +142,8 @@ input[value="notes"] ~ div.sheet-stats {
 .sheet-hp label, .sheet-ap label, .sheet-tp label,
 .sheet-hp input, .sheet-ap input, .sheet-tp input {
     margin-bottom: 0px;
+    position: relative;
+    text-decoration: underline;
 }
 
 .sheet-pilot textarea,
@@ -133,6 +152,7 @@ input[value="notes"] ~ div.sheet-stats {
     max-width: 100%; /* This ensures the textarea does not exceed its parent's width */
     width: 100%; /* This sets the textarea to fill the available space */
     box-sizing: border-box; /* This ensures padding and borders are included in the total width and height */
+    margin-top: 8px;
 }
 
 /* Pilot Sheet */
@@ -150,6 +170,17 @@ input[value="pilot"] ~ div.sheet-pilot {
     display: inline-block;
 }
 
+.sheet-abilities {
+    margin-bottom: 8px;
+}
+
+.sheet-pilot > div > img,
+.sheet-mech > div > img {
+    max-width: 65%;
+    height: auto;
+    margin: 8px 0;
+}
+
 /* Mech Sheet */
 
 input[value="mech"] ~ div.sheet-mech {
@@ -161,6 +192,37 @@ input[value="mech"] ~ div.sheet-pilot .sheet-column-left,
 input[value="mech"] ~ div.sheet-pilot .sheet-column-right {
     background-color: white;
     padding: 8px;
+}
+
+.sheet-chassis-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.sheet-chassis-stats div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sheet-chassis-stats label {
+    margin-bottom: 5px;
+}
+
+.sheet-chassis-stats input[type="number"] {
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+.sheet-chassis-info > div {
+    display: flex;
+    align-items: baseline;
+}
+
+.sheet-chassis-info > .mech-appearance-block {
+    display: block;
 }
 
 /* Notes Sheet */
@@ -178,6 +240,9 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
 
 /* HP Bar */
 
+.sheet-sp > span,
+.sheet-ep > span,
+.sheet-heat > span,
 .sheet-hp > span,
 .sheet-ap > span,
 .sheet-tp > span {
@@ -185,14 +250,20 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
     justify-content: space-between;
     align-items: baseline;
     margin: 4px 0;
+    position: relative;
 }
 
-
+.sheet-sp span:nth-child(1),
+.sheet-ep span:nth-child(1),
+.sheet-heat span:nth-child(1),
 .sheet-ap span:nth-child(1),
 .sheet-hp span:nth-child(1) {
     padding-right: 8px;
 }
 
+.sheet-sp span:nth-child(2),
+.sheet-ep span:nth-child(2),
+.sheet-heat span:nth-child(2),
 .sheet-ap span:nth-child(2),
 .sheet-hp span:nth-child(2) {
     padding-left: 8px;
@@ -218,6 +289,10 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
     justify-content: space-between;
 }
 
+.pilot-block-attribute {
+    margin-top: 8px;
+}
+
 .pilot-background-attribute,
 .pilot-appearance-attribute {
     margin-top: 8px;
@@ -230,19 +305,26 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
     width: 0;
 }
 
-.charactersheet.charsheet::after {
+.charactersheet.charsheet label::after {
 	background-color: #333;
 	border-radius: 10px;
-	color: #b254ff;
+	color: white;
 	display: none;
+    width: max-content;
+    max-width: 220px;
 	padding: 10px 15px;
 	position: absolute;
 	text-align: center;
 	z-index: 999;
-	content: 'tooltip';
+    content: attr(data-label-tooltip);
 	top: 0;
 	left: 50%;
-	transform: translate(-50%, calc(-100% - 10px));
+	transform: translate(-10%, calc(-100% - 10px));
+}
+
+.charactersheet.charsheet .sheet-tp label::after,
+.charactersheet.charsheet .sheet-heat label::after {
+	transform: translate(-85%, calc(-100% - 10px));
 }
 
 .charactersheet.charsheet label::before {
