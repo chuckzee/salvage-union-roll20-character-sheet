@@ -216,6 +216,7 @@ input[value="mech"] ~ div.sheet-pilot .sheet-column-right {
     box-sizing: border-box; 
 }
 
+.systems-item,
 .sheet-chassis-info > div {
     display: flex;
     align-items: baseline;
@@ -270,7 +271,7 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
 }
 
 /* Label Tooltips */
-
+.charactersheet.charsheet .sheet-column-right label,
 .charactersheet.charsheet .sheet-column-left label {
     position: relative;
     text-align: center;
@@ -280,6 +281,10 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
     flex: 0;
     margin-right: 0.5em;
     line-height: 1.2em;
+}
+
+.charactersheet.charsheet .sheet-column-right label {
+    flex: .25;
 }
 
 .pilot-inline-attribute {
@@ -300,7 +305,10 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
 
 .sheet-column-left select,
 .sheet-column-left input[type="text"],
-.sheet-column-left input[type="textarea"] {
+.sheet-column-left input[type="textarea"],
+.sheet-column-right select,
+.sheet-column-right input[type="text"],
+.sheet-column-right input[type="textarea"] {
     flex: 1;
     width: 0;
 }

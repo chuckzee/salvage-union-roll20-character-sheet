@@ -267,6 +267,33 @@
     </div>
     <div class="sheet-column-right">
         <h3>Systems & Modules</h3>
+        <fieldset class="repeating_systems">
+            <div class="sheet-systems">
+                <span class="systems-item">
+                    <label data-label-tooltip="Name of the system. e.g. Escape Hatch" for="systems_name">Name:</label>
+                    <input type="text" name="attr_systems_name"  id="systems_name" placeholder="Name"/>
+                </span>
+                <span class="systems-item">
+                    <label data-label-tooltip="Tags for the system - descriptive tags that don't fit the other fields. Melee, Recommended, e.g." for="systems_tags">Tags:</label>
+                    <input type="text" name="attr_systems_tags"  id="systems_tags" placeholder="Tags - Melee, Salvaging e.g."/>
+                </span>
+                <span class="systems-item">
+                    <label data-label-tooltip="Tech level of the system or module. Requires prerequisite Mech chassis that meets the tech level requirement." for="systems_tech_level">Tech LVL:</label>
+                    <select id="systems_tech_level" name="attr_systems_tech_level">
+                        <option value="T1">T1</option>
+                        <option value="T2">T2</option>
+                        <option value="T3">T3</option>
+                        <option value="T4">T4</option>
+                        <option value="T5">T5</option>
+                        <option value="T6">T6</option>
+                    </select>
+                </span>
+                <span class="mech-appearance-block">
+                    <label data-label-tooltip="Description of the system or module. How does it work and what does it do?" for="systems_description">Description:</label>
+                    <textarea name="attr_systems_description" id="systems_description" placeholder="Description"></textarea>
+                </span>
+            </div>
+        </fieldset>
         <h3>Cargo</h3>
     </div>
 </div>
