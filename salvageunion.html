@@ -77,38 +77,40 @@
     <div class="sheet-column-left">
         <h2>Pilot</h2>
         <span>Statistics, abilities, and inventory for your Salvage Union Pilot.</span>
-        <label for="class">Class:</label>
-        <select name="attr_class" id="class">
-            <option value="salvager">Salvager</option>
-            <option value="hacker">Hacker</option>
-            <option value="engineer">Engineer</option>
-            <option value="hauler">Hauler</option>
-            <option value="scout">Scout</option>
-            <option value="soldier">Soldier</option>
-            <option value="cyborg">Cyborg</option>
-            <option value="fabricator">Fabricator</option>
-            <option value="union_rep">Union Rep</option>
-            <option value="smuggler">Smuggler</option>
-            <option value="ranger">Ranger</option>
-        </select>
+        <div class="pilot-inline-attribute">
+            <label for="class">Class:</label>
+            <select name="attr_class" id="class">
+                <option value="salvager">Salvager</option>
+                <option value="hacker">Hacker</option>
+                <option value="engineer">Engineer</option>
+                <option value="hauler">Hauler</option>
+                <option value="scout">Scout</option>
+                <option value="soldier">Soldier</option>
+                <option value="cyborg">Cyborg</option>
+                <option value="fabricator">Fabricator</option>
+                <option value="union_rep">Union Rep</option>
+                <option value="smuggler">Smuggler</option>
+                <option value="ranger">Ranger</option>
+            </select>
+        </div>
         <!-- Pilot Information Fields -->
-        <div>
+        <div class="pilot-inline-attribute">
             <label for="pilot_callsign">Callsign:</label>
             <input type="text" name="attr_callsign" id="pilot_callsign" />
         </div>
-        <div>
+        <div class="pilot-inline-attribute">
             <label for="pilot_motto">Motto:</label>
             <input type="text" name="attr_motto" id="pilot_motto" />
         </div>
-        <div>
+        <div class="pilot-inline-attribute">
             <label for="pilot_keepsake">Keepsake:</label>
             <input type="text" name="attr_keepsake" id="pilot_keepsake" />
         </div>
-        <div>
+        <div class="pilot-block-attribute">
             <label for="pilot_appearance">Appearance:</label>
             <textarea name="attr_appearance" id="pilot_appearance"></textarea>
         </div>
-        <div>
+        <div class="pilot-block-attribute">
             <label for="pilot_background">Background:</label>
             <textarea name="attr_background" id="pilot_background"></textarea>
         </div>

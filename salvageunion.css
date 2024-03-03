@@ -197,3 +197,71 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
 .sheet-hp span:nth-child(2) {
     padding-left: 8px;
 }
+
+/* Label Tooltips */
+
+.charactersheet.charsheet .sheet-column-left label {
+    position: relative;
+    text-align: center;
+    display: inline;
+    text-transform: uppercase;
+    text-decoration: underline;
+    flex: 0;
+    margin-right: 0.5em;
+    line-height: 1.2em;
+}
+
+.pilot-inline-attribute {
+    display: flex;
+    align-items: baseline;
+    margin-top: 8px;
+    justify-content: space-between;
+}
+
+.pilot-background-attribute,
+.pilot-appearance-attribute {
+    margin-top: 8px;
+}
+
+.sheet-column-left select,
+.sheet-column-left input[type="text"],
+.sheet-column-left input[type="textarea"] {
+    flex: 1;
+    width: 0;
+}
+
+.charactersheet.charsheet::after {
+	background-color: #333;
+	border-radius: 10px;
+	color: #b254ff;
+	display: none;
+	padding: 10px 15px;
+	position: absolute;
+	text-align: center;
+	z-index: 999;
+	content: 'tooltip';
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, calc(-100% - 10px));
+}
+
+.charactersheet.charsheet label::before {
+	background-color: #333;
+	content: ' ';
+	display: none;
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	z-index: 999;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, calc(-100% - 5px)) rotate(45deg);
+}
+
+.charactersheet.charsheet label:hover::after {
+	display: block;
+}
+
+.charactersheet.charsheet label:hover::before {
+	display: block;
+}
