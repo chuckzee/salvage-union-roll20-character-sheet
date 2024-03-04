@@ -1,3 +1,12 @@
+<rolltemplate class="sheet-rolltemplate-salvageunion">
+    <div class="sheet-template-container">
+        <h3>{{name}}</h3>
+        <div class="sheet-results">
+            <h4>Roll: {{roll1}}</h4>
+            <h4>{{{computed::roll1}}}</h4>
+        </div>
+    </div>
+</rolltemplate>
 <script type="text/worker">
     const buttonlist = ["pilot", "mech", "notes"];
     buttonlist.forEach(button => {
@@ -24,15 +33,47 @@
         {"id": "ranger", "name": "Ranger"}
       ]
     };
-</script>
+    on('clicked:core_mechanic', () => {
+        startRoll("&{template:salvageunion} {{name=Core Mechanic Roll}} {{roll1=[[1d20]]}}", (results) => {
+            let total = results.results.roll1.result;
+            let computed;
 
+            // Define the custom result based on the roll
+            if (total == 20) {
+                computed = 'Nailed it: You have overcome the odds and managed an outstanding success. You may achieve an additional bonus of your choice to the action. When dealing damage, you can choose to double it or pick another appropriate bonus effect.';
+            } else if (total >= 11 && total <= 19) {
+                computed = 'Success: You have achieved your goal without any compromises. When attacking, you hit the target and deal standard damage.';
+            } else if (total >= 6 && total <= 10) {
+                computed = 'Tough Choice: You succeed in your action, but at a cost. The Mediator gives you a Tough Choice with some kind of Setback attached. When attacking, you hit, but must make a Tough Choice';
+            } else if (total >= 2 && total <= 5) {
+                computed = 'Failure: You have failed at what you were attempting to do. You face a Setback of the Mediator\'s choice. When attacking, you miss the target.';
+            } else if (total == 1) {
+                computed = 'Cascade Failure: Something has gone terribly wrong. You suffer a severe consequence of the Mediator\'s choice. When attacking, you miss the target and suffer a Setback chosen by the Mediator.';
+            }
+
+            finishRoll(
+                results.rollId,
+                {
+                    'roll1': computed,
+                }
+            );
+        });
+    });
+</script>
 <input type="hidden" class="sheet-tabstoggle" name="attr_sheetTab" value="pilot" />
-<input type="hidden" class="sheet-class-select" name="attr_class" value="salvager" />
-<input type="hidden" class="sheet-class-select" name="attr_hp" value="10" />
-<input type="hidden" class="sheet-class-select" name="attr_hp_max" value="10" />
-<input type="hidden" class="sheet-class-select" name="attr_ap" value="5" />
-<input type="hidden" class="sheet-class-select" name="attr_ap_max" value="5" />
-<input type="hidden" class="sheet-class-select" name="attr_tp" value="0" />
+<input type="hidden" name="attr_class" value="salvager" />
+<input type="hidden" name="attr_hp" value="10" />
+<input type="hidden" name="attr_hp_max" value="10" />
+<input type="hidden" name="attr_ap" value="5" />
+<input type="hidden" name="attr_ap_max" value="5" />
+<input type="hidden" name="attr_tp" value="0" />
+
+<!-- Table for roll results -->
+<input type="hidden" name="attr_Core-Mechanic" value="" />
+
+<div class="roller-buttons-wrapper">
+    <button type="action" name="act_core_mechanic">Roll Core Mechanic</button>
+</div>
 <div class="sheet-tabs-wrapper">
     <button type="action" name="act_pilot">Pilot</button>
     <button type="action" name="act_mech">Mech</button>
@@ -63,19 +104,6 @@
             <input type="number" name="attr_hp_max" id="hp_max" value="10" />
         </span>
     </div>
-
-    <!-- Action Points (AP) -->
-    <!-- <div class="sheet-ap">
-        <span>
-            <label for="ap_current">AP:</label>
-            <input type="number" name="attr_ap" id="ap_current" value="5" />
-        </span>
-        /
-        <span>
-            <label for="ap_max">Max:</label>
-            <input type="number" name="attr_ap_max" id="ap_max" value="5" />
-        </span>
-    </div> -->
 
     <!-- Training Points (TP) -->
     <div class="sheet-tp">
