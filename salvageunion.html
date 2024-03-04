@@ -59,6 +59,31 @@
             );
         });
     });
+    on('clicked:group_initiative', () => {
+        startRoll("&{template:salvageunion} {{name=Group Initiative Roll}} {{roll1=[[1d20]]}}", (results) => {
+            let total = results.results.roll1.result;
+            let computed;
+
+            if (total == 20) {
+                computed = 'You Shot First: Two Pilots chosen by the players act first. Play then passes to the NPC group and one NPC chosen by the Mediator acts next.';
+            } else if (total >= 11 && total <= 19) {
+                computed = 'Quickdraw: One Pilot chosen by the players acts first. Play then passes to the NPC group and one NPC chosen by the Mediator acts.';
+            } else if (total >= 6 && total <= 10) {
+                computed = 'Wait and See: One NPC chosen by the players acts first. Play then passes to the player group and one Pilot chosen by the players acts.';
+            } else if (total >= 2 && total <= 5) {
+                computed = 'Fumble: One NPC chosen by the Mediator acts first. Play then passes to the player group and one Pilot chosen by the players acts.';
+            } else if (total == 1) {
+                computed = 'Ambush:  Two NPCs chosen by the Mediator act first. Play then passes to the player group and one Pilot is chosen by the players to act next. ';
+            }
+
+            finishRoll(
+                results.rollId,
+                {
+                    'roll1': computed,
+                }
+            );
+        });
+    });
 </script>
 <input type="hidden" class="sheet-tabstoggle" name="attr_sheetTab" value="pilot" />
 <input type="hidden" name="attr_class" value="salvager" />
@@ -73,6 +98,14 @@
 
 <div class="roller-buttons-wrapper">
     <button type="action" name="act_core_mechanic">Roll Core Mechanic</button>
+    <button type="action" name="act_group_initiative">Group Initiative Roll</button>
+    <button type="action" name="act_group_retreat">Group Retreat Roll</button>
+    <button type="action" name="act_critical_damage">Critical Damage Roll</button>
+    <button type="action" name="act_critical_injury">Critical Injury Roll</button>
+    <button type="action" name="act_reactor_overload">Reactor Overload Roll</button>
+    <button type="action" name="act_area_salvage">Area Salvage Roll</button>
+    <button type="action" name="act_mech_salvage">Mech Salvage Roll</button>
+
 </div>
 <div class="sheet-tabs-wrapper">
     <button type="action" name="act_pilot">Pilot</button>
