@@ -193,23 +193,27 @@ input[value="mech"] ~ div.sheet-pilot .sheet-column-right {
     padding: 8px;
 }
 
+.sheet-system-stats,
 .sheet-chassis-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
     gap: 10px;
-    margin-top: 20px;
+    margin: 8px 0;
 }
 
+.sheet-system-stats div,
 .sheet-chassis-stats div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
+.sheet-system-stats label,
 .sheet-chassis-stats label {
     margin-bottom: 5px;
 }
 
+.sheet-system-stats input[type="number"],
 .sheet-chassis-stats input[type="number"] {
     width: 100%; 
     box-sizing: border-box; 
@@ -223,6 +227,14 @@ input[value="mech"] ~ div.sheet-pilot .sheet-column-right {
 
 .sheet-chassis-info > .mech-appearance-block {
     display: block;
+}
+
+div[data-groupname="repeating_systems"] .repitem {
+    padding: 8px;
+}
+
+div[data-groupname="repeating_systems"] .repitem:nth-child(even) {
+    background-color: #ecf3f2;
 }
 
 /* Notes Sheet */
@@ -282,10 +294,6 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
     line-height: 1.2em;
 }
 
-.charactersheet.charsheet .sheet-column-right label {
-    flex: .25;
-}
-
 .pilot-inline-attribute {
     display: flex;
     align-items: baseline;
@@ -328,6 +336,7 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
 	transform: translate(-10%, calc(-100% - 10px));
 }
 
+.charactersheet.charsheet .tooltip-slide label::after,
 .charactersheet.charsheet .sheet-tp label::after,
 .charactersheet.charsheet .sheet-heat label::after {
 	transform: translate(-85%, calc(-100% - 10px));
@@ -352,7 +361,7 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
 
 .charactersheet.charsheet label:hover::before {
 	display: block;
-}
+} 
 
 /* Roller Templates */
 

@@ -84,6 +84,156 @@
             );
         });
     });
+    on('clicked:group_retreat', () => {
+        startRoll("&{template:salvageunion} {{name=Group Retreat Roll}} {{roll1=[[1d20]]}}", (results) => {
+            let total = results.results.roll1.result;
+            let computed;
+
+            if (total == 20) {
+                computed = 'Perfect Escape: : The group makes a perfect escape from the situation to any location of their choice within the Region Map and cannot be pursued.';
+            } else if (total >= 11 && total <= 19) {
+                computed = 'Escape: The group makes a safe escape from the situation to any adjacent location of their choice within the Map and cannot be pursued.';
+            } else if (total >= 6 && total <= 10) {
+                computed = 'Dangerous Escape: The group escapes to any adjacent location of their choice within the Region Map, but at a cost. They must make a Tough Choice related to the situation.';
+            } else if (total >= 2 && total <= 5) {
+                computed = 'Failed Escape: The group fails to retreat from the situation and are pinned down. They cannot retreat and must fight it out to the end.';
+            } else if (total == 1) {
+                computed = 'Disastrous Escape:  The group retreat to an adjacent location of their choice within the Region Map, but at a severe cost. They suffer a Severe Setback and may be pursued. ';
+            }
+
+            finishRoll(
+                results.rollId,
+                {
+                    'roll1': computed,
+                }
+            );
+        });
+    });
+    on('clicked:critical_damage', () => {
+        startRoll("&{template:salvageunion} {{name=Critical Damage Roll}} {{roll1=[[1d20]]}}", (results) => {
+            let total = results.results.roll1.result;
+            let computed;
+
+            if (total == 20) {
+                computed = 'Miraculous Survival: Your Mech is somehow Intact. It has 1 SP and is still fully operational. Your Pilot is unharmed.';
+            } else if (total >= 11 && total <= 19) {
+                computed = 'Core Damage: Your Mech Chassis is damaged and inoperable until repaired. All mounted Systems and Modules remain Intact. Your Pilot is reduced to 0 HP unless they have some means to escape the Mech.';
+            } else if (total >= 6 && total <= 10) {
+                computed = 'Module Destruction: A Module mounted on your Mech is destroyed. This is chosen by the Mediator or at random. Your Mech Chassis is damaged and inoperable until repaired. Your Pilot is unharmed.';
+            } else if (total >= 2 && total <= 5) {
+                computed = 'System Destruction: A System mounted on your Mech is destroyed. This is chosen by the Mediator or at random. Your Mech Chassis is damaged and inoperable until repaired. Your Pilot is unharmed.';
+            } else if (total == 1) {
+                computed = 'Catastrophic Damage: The Mech, as well as any mounted Systems and Modules as well as all Cargo, is destroyed. Your Pilot dies unless they have a means to escape the Mech.';
+            }
+
+            finishRoll(
+                results.rollId,
+                {
+                    'roll1': computed,
+                }
+            );
+        });
+    });
+    on('clicked:critical_injury', () => {
+        startRoll("&{template:salvageunion} {{name=Critical Injury Roll}} {{roll1=[[1d20]]}}", (results) => {
+            let total = results.results.roll1.result;
+            let computed;
+
+            if (total == 20) {
+                computed = 'Miraculous Survival: You survive against the odds. You have 1 HP, remain conscious and can act normally.';
+            } else if (total >= 11 && total <= 19) {
+                computed = 'Unconscious: You are stable at 0 HP, but unconscious and cannot move or take actions until you gain at least 1 HP. You will regain consciousness naturally in 1 hour and get back up with 1 HP.';
+            } else if (total >= 6 && total <= 10) {
+                computed = 'Minor Injury: You suffer a Minor Injury such as a sprain, burns, or minor concussion. Your Max HP is reduced by 1 until healed in a Tech 3 - 4 Med Bay. In addition, you are Unconscious. Apply the result of 11 - 19.';
+            } else if (total >= 2 && total <= 5) {
+                computed = 'Major Injury: You suffer a Major Injury such as permanent scarring, broken ribs, or internal injuries. Your Max HP is reduced by 2 until healed in a Tech 5 - 6 Med Bay. In addition, you are Unconscious. Apply the result of 11-19.';
+            } else if (total == 1) {
+                computed = 'Fatal Injury: Your Pilot suffers a fatal injury and dies.';
+            }
+
+            finishRoll(
+                results.rollId,
+                {
+                    'roll1': computed,
+                }
+            );
+        });
+    });
+    on('clicked:reactor_overload', () => {
+        startRoll("&{template:salvageunion} {{name=Reactor Overload Roll}} {{roll1=[[1d20]]}}", (results) => {
+            let total = results.results.roll1.result;
+            let computed;
+
+            if (total == 20) {
+                computed = 'Reactor Overdrive: Your Mech\'s reactor goes into overdrive. Your Mech can take any additional action this turn or Push their next roll within 10 minutes for free.';
+            } else if (total >= 11 && total <= 19) {
+                computed = 'Reactor Overheat: Your Mech\'s reactor has overheated. Your Mech shuts down and gains the Vulnerable Trait. Your Mech will re-activate at the end of your next turn. In addition, your Mech takes an amount of SP damage equal to your current Heat.';
+            } else if (total >= 6 && total <= 10) {
+                computed = 'Module Overload: One of your Mech\'s Modules chosen at random or by the Mediator is destroyed.';
+            } else if (total >= 2 && total <= 5) {
+                computed = 'System Overload: One of your Mech\'s Systems chosen at random or by the Mediator is destroyed.';
+            } else if (total == 1) {
+                computed = 'Reactor Overload: Your Mech\'s reactor goes into full meltdown and explodes. Your Mech, as well as any mounted Systems, Modules, and all Cargo, is destroyed in the explosion. Everything in Close Range of your Mech takes SP damage equal to your Mech\'s Maximum Heat Capacity. Your Pilot dies unless they have a means to escape. The area your Mech was in becomes Irradiated.';
+            }
+
+            finishRoll(
+                results.rollId,
+                {
+                    'roll1': computed,
+                }
+            );
+        });
+    });
+    on('clicked:area_salvage', () => {
+        startRoll("&{template:salvageunion} {{name=Area Salvage Roll}} {{roll1=[[1d20]]}}", (results) => {
+            let total = results.results.roll1.result;
+            let computed;
+
+            if (total == 20) {
+                computed = 'Jackpot: You find a Mech Chassis, System, or Module at the Tech Level of the area. It is in the Damaged Condition. This can be randomised or chosen by the Mediator.';
+            } else if (total >= 11 && total <= 19) {
+                computed = 'Winning: You find 3 Scrap of the Tech Level of the area.';
+            } else if (total >= 6 && total <= 10) {
+                computed = 'Not Bad: You find 2 Scrap of the Tech Level of the area.';
+            } else if (total >= 2 && total <= 5) {
+                computed = 'Better than Nothing: You find 1 Scrap of the Tech Level of the area.';
+            } else if (total == 1) {
+                computed = 'Nothing: You find nothing in this area.';
+            }
+
+            finishRoll(
+                results.rollId,
+                {
+                    'roll1': computed,
+                }
+            );
+        });
+    });
+    on('clicked:mech_salvage', () => {
+        startRoll("&{template:salvageunion} {{name=Mech Salvage Roll}} {{roll1=[[1d20]]}}", (results) => {
+            let total = results.results.roll1.result;
+            let computed;
+
+            if (total == 20) {
+                computed = 'Lions Share: You salvage the Mech Chassis, a System and a Module of your choice mounted on it. They both have the Damaged Condition. Anything else is considered destroyed.';
+            } else if (total >= 11 && total <= 19) {
+                computed = 'Meat and Potatoes: You salvage the Mech Chassis or a System or Module of your choice mounted on it. It has the Damaged Condition. Anything else is considered destroyed.';
+            } else if (total >= 6 && total <= 10) {
+                computed = 'Bits and Pieces: You salvage a System or Module of your choice mounted on the Mech. It has the Damaged Condition. Anything else is considered destroyed.';
+            } else if (total >= 2 && total <= 5) {
+                computed = 'Nuts and Bolts: You salvage half of the Salvage Value of the Mech Chassis in Scrap of its Tech Level, to a minimum of 1. Everything else is considered destroyed.';
+            } else if (total == 1) {
+                computed = 'Ashes and Dust: The Mech is unsalvageable: its Chassis, Systems and Modules are all considered destroyed.';
+            }
+
+            finishRoll(
+                results.rollId,
+                {
+                    'roll1': computed,
+                }
+            );
+        });
+    });
 </script>
 <input type="hidden" class="sheet-tabstoggle" name="attr_sheetTab" value="pilot" />
 <input type="hidden" name="attr_class" value="salvager" />
@@ -97,7 +247,7 @@
 <input type="hidden" name="attr_Core-Mechanic" value="" />
 
 <div class="roller-buttons-wrapper">
-    <button type="action" name="act_core_mechanic">Roll Core Mechanic</button>
+    <button type="action" name="act_core_mechanic">Core Mechanic Roll</button>
     <button type="action" name="act_group_initiative">Group Initiative Roll</button>
     <button type="action" name="act_group_retreat">Group Retreat Roll</button>
     <button type="action" name="act_critical_damage">Critical Damage Roll</button>
@@ -105,7 +255,6 @@
     <button type="action" name="act_reactor_overload">Reactor Overload Roll</button>
     <button type="action" name="act_area_salvage">Area Salvage Roll</button>
     <button type="action" name="act_mech_salvage">Mech Salvage Roll</button>
-
 </div>
 <div class="sheet-tabs-wrapper">
     <button type="action" name="act_pilot">Pilot</button>
@@ -297,11 +446,6 @@
                 <label data-label-tooltip="" for="mech_quirk">Quirk:</label>
                 <input type="text" name="attr_mech_quirk" id="mech_quirk" />
             </div>
-            <div class="mech-appearance-block">
-                <label data-label-tooltip="" for="mech_appearance">Appearance:</label>
-                <textarea name="attr_mech_appearance" id="mech_appearance">
-                </textarea>
-            </div>
         </div>
         <div class="sheet-chassis-stats">
             <div>
@@ -325,34 +469,51 @@
                 <input type="number" name="attr_mech_salvage_value" id="mech_salvage_value" />
             </div>
         </div>
+        <div class="sheet-chassis-info">
+            <div class="mech-appearance-block">
+                <label data-label-tooltip="" for="mech_appearance">Appearance:</label>
+                <textarea name="attr_mech_appearance" id="mech_appearance">
+                </textarea>
+            </div>
+        </div>
     </div>
     <div class="sheet-column-right">
         <h3>Systems & Modules</h3>
         <fieldset class="repeating_systems">
             <div class="sheet-systems">
-                <span class="systems-item">
-                    <label data-label-tooltip="Name of the system. e.g. Escape Hatch" for="systems_name">Name:</label>
-                    <input type="text" name="attr_systems_name"  id="systems_name" placeholder="Name"/>
-                </span>
-                <span class="systems-item">
+                <div class="system-module-meta">
+                    <div class="systems-item">
+                        <label data-label-tooltip="Name of the system. e.g. Escape Hatch" for="systems_name">Name:</label>
+                        <input type="text" name="attr_systems_name"  id="systems_name" placeholder="Name"/>
+                        <select type="text" name="attr_system_or_module"  id="system_or_module">
+                            <option value="System">System</option>
+                            <option value="Module">Module</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="systems-item">
                     <label data-label-tooltip="Tags for the system - descriptive tags that don't fit the other fields. Melee, Recommended, e.g." for="systems_tags">Tags:</label>
                     <input type="text" name="attr_systems_tags"  id="systems_tags" placeholder="Tags - Melee, Salvaging e.g."/>
-                </span>
-                <span class="systems-item">
-                    <label data-label-tooltip="Tech level of the system or module. Requires prerequisite Mech chassis that meets the tech level requirement." for="systems_tech_level">Tech LVL:</label>
-                    <select id="systems_tech_level" name="attr_systems_tech_level">
-                        <option value="T1">T1</option>
-                        <option value="T2">T2</option>
-                        <option value="T3">T3</option>
-                        <option value="T4">T4</option>
-                        <option value="T5">T5</option>
-                        <option value="T6">T6</option>
-                    </select>
-                </span>
-                <span class="mech-appearance-block">
-                    <label data-label-tooltip="Description of the system or module. How does it work and what does it do?" for="systems_description">Description:</label>
-                    <textarea name="attr_systems_description" id="systems_description" placeholder="Description"></textarea>
-                </span>
+                </div>
+                <div class="sheet-system-stats">
+                    <div>
+                        <label data-label-tooltip="Required Chassis Tech level to use this system or module." for="mech_system_tech_lvl">TECH LVL:</label>
+                        <input type="number" name="attr_mech_system_tech_lvl" id="mech_system_tech_lvl" />
+                    </div>
+                    <div>
+                        <label data-label-tooltip="Required slots to utilize this module or system on your chassis." for="mech_system_slots_req">SLOTS REQ.:</label>
+                        <input type="number" name="attr_mech_system_slots_req" id="mech_system_slots_req" />
+                    </div>
+                    <div class="tooltip-slide">
+                        <label data-label-tooltip="Sale value of this module or system." for="mech_system_salvage_value">SALVAGE VAL.:</label>
+                        <input type="number" name="attr_mech_system_salvage_value" id="mech_system_salvage_value" />
+                    </div>
+                </div>
+                <div>
+                    <label data-label-tooltip="Description of the module or system, including any actions, additional bonuses provided, or possible nuclear rammifications from use." for="mech_system_description">Description:</label>
+                    <textarea name="attr_mech_system_description" id="mech_system_description">
+                    </textarea>
+                </div>
             </div>
         </fieldset>
         <h3>Cargo</h3>
