@@ -8,6 +8,46 @@
     </div>
 </rolltemplate>
 <script type="text/worker">
+    on("change:repeating_cargo:cargo_count", function(eventInfo) {
+        getSectionIDs("repeating_cargo", function(ids) {
+            let totalCargoCount = 0;
+            let fieldsToGet = ids.map(id => `repeating_cargo_${id}_cargo_count`);
+    
+            getAttrs(fieldsToGet, function(values) {
+                ids.forEach(id => {
+                    let cargoCount = parseInt(values[`repeating_cargo_${id}_cargo_count`], 10) || 0;
+                    totalCargoCount += cargoCount;
+                });
+    
+                setAttrs({
+                    cargo_total: totalCargoCount
+                }, {}, function() {
+                    getAttrs(["cargo_total", "mech_cargo_cap"], function(values) {
+                        let cargoTotal = parseInt(values.cargo_total, 10) || 0;
+                        let mechCargoCap = parseInt(values.mech_cargo_cap, 10) || 0;
+                        let cargoOverMax = (cargoTotal > mechCargoCap) ? 1 : 0;
+            
+                        setAttrs({
+                            cargo_over: cargoOverMax
+                        });
+                    });
+                });
+            });
+        });
+    });
+    
+    on("change:mech_cargo_cap change:cargo_total", function() {
+        getAttrs(["cargo_total", "mech_cargo_cap"], function(values) {
+            let cargoTotal = parseInt(values.cargo_total, 10) || 0;
+            let mechCargoCap = parseInt(values.mech_cargo_cap, 10) || 0;
+            let cargoOverMax = (cargoTotal > mechCargoCap) ? 1 : 0;
+    
+            setAttrs({
+                cargo_over: cargoOverMax
+            });
+        });
+    });
+    
     const buttonlist = ["pilot", "mech", "cargo"];
     buttonlist.forEach(button => {
         on(`clicked:${button}`, function() {
@@ -16,6 +56,7 @@
             });
         });
     });
+
     const classData = {
       "standardClasses": [
         {"id": "salvager", "name": "Salvager"},
@@ -562,12 +603,44 @@
     </div>
 </div>
 
-<div class="sheet-cargo">
-    <div class="sheet-column-right">
-        <h2>cargo</h2>
-        <span>cargo go here</span>
+<div class="sheet-cargo sheet-stats">
+    <div class="sheet-hp sheet-cargo-stats">
+        <span>
+            <input type="hidden" name="attr_cargo_over" id="cargo_over"/>
+            <label data-label-tooltip="Your cargo load calculated from your current listed cargo.">LOAD:</label>
+            <span name="attr_cargo_total" class="cargo-count"></span>
+        </span>
+        /
+        <span>
+            <label data-label-tooltip="Your mech's cargo cap - the max capacity for what your mech can carry. Generally the total Salvage Value of cargo = how many slots it will take up." for="hp_max">MAX:</label>
+            <span name="attr_mech_cargo_cap"></span>
+        </span>
     </div>
-    <div class="sheet-column-right">
-        stuff
+</div>
+<div class="sheet-cargo">
+    <div class="cargo-wrapper">
+        <h2>Cargo</h2>
+        <fieldset class="repeating_cargo">
+            <div class="sheet-cargo-item">
+                <div class="cargo-item">
+                    <div>
+                        <label data-label-tooltip="The name of the piece of Cargo in your mech's cargo hold." for="cargoName">NAME:</label>
+                        <input id="cargoName" type="text" name="attr_cargo_name" placeholder="Cargo Name" value=""/>
+                    </div>
+                    <div>
+                        <label data-label-tooltip="The cargo slots taken up by the cargo. Mech chassis and parts' savlage value = the amount of slots it takes up." for="amountOfCargo">SLOTS:</label>
+                        <input id="amountOfCargo" type="number" name="attr_cargo_count" placeholder="#" min="0"/>
+                    </div>
+                    <div>
+                        <label data-label-tooltip="The salvage value of the cargo in your mech's cargo hold." for="valueOfCargo">VALUE:</label>
+                        <input id="valueOfCargo" type="number" name="attr_cargo_value" placeholder="#" min="0"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="cargo-description" data-label-tooltip="Description of the Cargo your mech is carrying." for="cargoItemDescription">DESCRIPTION:</label>
+                    <textarea id="cargoItemDescription" name="attr_cargo_description" placeholder="Description"></textarea>
+                </div>
+            </div>
+        </fieldset>
     </div>
 </div>

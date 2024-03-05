@@ -83,13 +83,10 @@ h3 {
 }
 
 /* Tabs Styling */
+.charsheet .sheet-tabstoggle[value="cargo"] ~ .sheet-cargo,
 .charsheet .sheet-tabstoggle[value="pilot"] ~ .sheet-pilot,
 .charsheet .sheet-tabstoggle[value="mech"] ~ .sheet-mech {
     display: flex;
-}
-
-.charsheet .sheet-tabstoggle[value="cargo"] ~ .sheet-cargo {
-    display: block;
 }
 
 .sheet-tabs-wrapper {
@@ -209,9 +206,9 @@ input[value="cargo"] ~ div.sheet-stats {
 .sheet-pilot textarea,
 .sheet-cargo textarea,
 .sheet-mech textarea {
-    max-width: 100%; /* This ensures the textarea does not exceed its parent's width */
-    width: 100%; /* This sets the textarea to fill the available space */
-    box-sizing: border-box; /* This ensures padding and borders are included in the total width and height */
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
     margin-top: 8px;
 }
 
@@ -352,6 +349,89 @@ input[value="cargo"] ~ div.sheet-pilot .sheet-column-left,
 input[value="cargo"] ~ div.sheet-pilot .sheet-column-right {
     background-color: white;
     padding: 8px;
+}
+
+.cargo-wrapper,
+.sheet-cargo {
+    width: 100%;
+    max-width: 100%;
+}
+
+.cargo-wrapper {
+    background-color: white;
+    padding: 8px;
+}
+
+.cargo-wrapper div.repcontainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cargo-wrapper div.repcontainer > div {
+    flex: 1 1 calc(50% - 20px);
+    margin: 10px;
+}
+
+.cargo-item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 16px;
+}
+
+.cargo-item label {
+    margin-bottom: 4px;
+}
+  
+.cargo-item > div:first-child {
+    width: calc(50% - 10px);
+    margin-right: 5px; 
+}
+
+.cargo-item > div:first-child label {
+    text-align: left;
+}
+  
+.cargo-item > div:nth-child(2),
+.cargo-item > div:nth-child(3) {
+    width: calc(25% - 10px);
+    margin-right: 5px;
+    text-align: right; 
+    align-items: center;
+}
+
+.cargo-item > div:nth-child(2) label,
+.cargo-item > div:nth-child(3) label {
+    text-align: center;
+}
+
+.cargo-item > div:nth-child(3) > input {
+    width: 6.5em;
+}
+  
+.cargo-item > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    height: 100%; 
+}
+
+.cargo-item > div > label {
+    padding: 0 0;
+    margin: 0 0 4px 0;
+}
+  
+.cargo-item > div:last-child {
+    margin-right: 0;
+}
+
+.characterviewer label.cargo-description {
+    margin-bottom: 4px;
+}
+
+input#cargo_over[value="1"] ~ label,
+input#cargo_over[value="1"] ~ span {
+    color: red;
 }
 
 /* HP Bar */
