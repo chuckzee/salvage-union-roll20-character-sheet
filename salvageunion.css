@@ -360,6 +360,7 @@ input[value="cargo"] ~ div.sheet-pilot .sheet-column-right {
 .cargo-wrapper {
     background-color: white;
     padding: 8px;
+    border: 4px solid black;
 }
 
 .cargo-wrapper div.repcontainer {
