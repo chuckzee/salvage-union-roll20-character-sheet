@@ -8,7 +8,7 @@
     </div>
 </rolltemplate>
 <script type="text/worker">
-    const buttonlist = ["pilot", "mech", "notes"];
+    const buttonlist = ["pilot", "mech", "cargo"];
     buttonlist.forEach(button => {
         on(`clicked:${button}`, function() {
             setAttrs({
@@ -242,6 +242,7 @@
 <input type="hidden" name="attr_ap" value="5" />
 <input type="hidden" name="attr_ap_max" value="5" />
 <input type="hidden" name="attr_tp" value="0" />
+<input type="hidden" name="collapsedFields" value="" />
 
 <!-- Table for roll results -->
 <input type="hidden" name="attr_Core-Mechanic" value="" />
@@ -259,7 +260,7 @@
 <div class="sheet-tabs-wrapper">
     <button type="action" name="act_pilot">Pilot</button>
     <button type="action" name="act_mech">Mech</button>
-    <button type="action" name="act_notes">Notes</button>
+    <button type="action" name="act_cargo">Cargo</button>
     <!-- Action Points (AP) -->
     <div class="sheet-ap">
         <span>
@@ -343,26 +344,46 @@
         <div class="sheet-abilities">
             <h3>Abilities</h3>
             <fieldset class="repeating_abilities">
+                <input class="expand-control" type="hidden" name="attr_expand_item" value="1"/>
+                <input alt="Show/Hide" id="toggleCheckbox" class="toggle-checkbox" type="checkbox" name="attr_expand_item" value="1" checked="true"/>
                 <div class="sheet-ability">
-                    <input type="text" name="attr_ability_name" placeholder="Name"/>
-                    <textarea name="attr_ability_description" placeholder="Description"></textarea>
-                    <input type="number" name="attr_ability_ap" placeholder="AP Value" min="0"/>
-                    <select name="attr_ability_range">
-                        <option value="Close">N/A</option>
-                        <option value="Close">Close</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Long">Long</option>
-                        <option value="Far">Far</option>
-                    </select>
-                    <select name="attr_ability_actiontype">
-                        <option value="Passive">Passive</option>
-                        <option value="Free">Free</option>
-                        <option value="Reaction">Reaction</option>
-                        <option value="Turn">Turn</option>
-                        <option value="Short">Short</option>
-                        <option value="Long">Long</option>
-                        <option value="Downtime">Downtime</option>
-                    </select>
+                    <span class="meta-system-name-collapsed" name="attr_ability_name"></span>
+                    <div class="pilot-inline-attribute">
+                        <label data-label-tooltip="The name of your pilot's ability." for="ability_name">NAME:</label>
+                        <input type="text" name="attr_ability_name" id="ability_name" placeholder="Name"/>
+                    </div>
+                    <div>
+                        <label data-label-tooltip="The Description of your pilot's ability - list all the particulars here for easy reference." for="ability_description">DESCRIPTION:</label>
+                        <textarea name="attr_ability_description" placeholder="Description" id="ability_description"></textarea>
+                    </div>
+                    <div class="pilot-ability-stat-grid">
+                        <div>
+                            <label data-label-tooltip="The Action Point cost of your pilot's ability." for="ability_ap">AP:</label>
+                            <input type="number" name="attr_ability_ap" placeholder="AP Value" min="0" id="ability_ap"/>
+                        </div>
+                        <div>
+                            <label data-label-tooltip="The range of your pilot's ability." for="ability_range">RANGE:</label>
+                            <select name="attr_ability_range" id="ability_range">
+                                <option value="Close">N/A</option>
+                                <option value="Close">Close</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Long">Long</option>
+                                <option value="Far">Far</option>
+                            </select>
+                        </div>
+                        <div class="tooltip-slide">
+                            <label data-label-tooltip="The action's type - this will generally dictate how long something can take, or if it's always on, or if it's something you would do in your off hours." for="ability_actiontype">TYPE:</label>
+                            <select name="attr_ability_actiontype" id="ability_actiontype">
+                                <option value="Passive">Passive</option>
+                                <option value="Free">Free</option>
+                                <option value="Reaction">Reaction</option>
+                                <option value="Turn">Turn</option>
+                                <option value="Short">Short</option>
+                                <option value="Long">Long</option>
+                                <option value="Downtime">Downtime</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -371,12 +392,24 @@
         <div class="sheet-inventory">
             <h3>Inventory</h3>
             <fieldset class="repeating_inventory">
+                <input class="expand-control" type="hidden" name="attr_expand_item" value="1"/>
+                <input alt="Show/Hide" id="toggleCheckbox" class="toggle-checkbox" type="checkbox" name="attr_expand_item" value="1" checked="true"/>
                 <div class="sheet-inventory">
+                    <span class="meta-system-name-collapsed" name="attr_inventory_name"></span>
                     <span class="inventory-item">
-                        <input type="text" name="attr_inventory_name" placeholder="Name"/>
-                        <input type="number" name="attr_inventory_count" placeholder="#" min="0"/>
+                        <div>
+                            <label data-label-tooltip="The name of the item in your pilot's inventory." for="inventoryName">Name:</label>
+                            <input id="inventoryName" type="text" name="attr_inventory_name" placeholder="Name"/>
+                        </div>
+                        <div>
+                            <label data-label-tooltip="The quantity of the item in your pilot's inventory. Optional!" for="numberInInventory">Count:</label>
+                            <input id="numberInInventory" type="number" name="attr_inventory_count" placeholder="#" min="0"/>
+                        </div>
                     </span>
-                    <textarea name="attr_inventory_description" placeholder="Description"></textarea>
+                    <div>
+                        <label data-label-tooltip="The description of the item in your pilot's inventory. Include details you'll need to remember later." for="inventoryItemDescription">Description:</label>
+                        <textarea id="inventoryItemDescription" name="attr_inventory_description" placeholder="Description"></textarea>
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -470,6 +503,13 @@
             </div>
         </div>
         <div class="sheet-chassis-info">
+            <div class="mech-chassis-ability-block">
+                <label data-label-tooltip="" for="mech_chassis_ability">Chassis Ability:</label>
+                <textarea name="attr_mech_chassis_ability" id="mech_chassis_ability">
+                </textarea>
+            </div>
+        </div>
+        <div class="sheet-chassis-info">
             <div class="mech-appearance-block">
                 <label data-label-tooltip="" for="mech_appearance">Appearance:</label>
                 <textarea name="attr_mech_appearance" id="mech_appearance">
@@ -480,7 +520,10 @@
     <div class="sheet-column-right">
         <h3>Systems & Modules</h3>
         <fieldset class="repeating_systems">
+            <input class="expand-control" type="hidden" name="attr_expand_item" value="1"/>
+            <input alt="Show/Hide" id="toggleCheckbox" class="toggle-checkbox" type="checkbox" name="attr_expand_item" value="1" checked="true"/>
             <div class="sheet-systems">
+                <span class="meta-system-name-collapsed" name="attr_systems_name"></span><span class="dash-separator"> - </span><span class="system-or-module" name="attr_system_or_module"></span>
                 <div class="system-module-meta">
                     <div class="systems-item">
                         <label data-label-tooltip="Name of the system. e.g. Escape Hatch" for="systems_name">Name:</label>
@@ -516,11 +559,15 @@
                 </div>
             </div>
         </fieldset>
-        <h3>Cargo</h3>
     </div>
 </div>
 
-<div class="sheet-notes">
-    <h2>Notes</h2>
-    <span>Notes go here</span>
+<div class="sheet-cargo">
+    <div class="sheet-column-right">
+        <h2>cargo</h2>
+        <span>cargo go here</span>
+    </div>
+    <div class="sheet-column-right">
+        stuff
+    </div>
 </div>

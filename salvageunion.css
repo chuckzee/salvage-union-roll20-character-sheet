@@ -1,6 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap');
+
+.charactersheet.charsheet {
+  font-family: "Spline Sans Mono", monospace;
+  font-optical-sizing: auto;
+}
+
 h2 {    
     font-weight: 900;
-    font-family: sans-serif;
+    font-family: "Spline Sans Mono", monospace;
     font-size: 36px;
     text-transform: uppercase;
     margin-bottom: 8px;
@@ -24,21 +31,55 @@ h3 {
     -webkit-text-stroke-color: #73978E;
 }
 
-.sheet-notes h2 {
+.sheet-cargo h2 {
     color: white;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: #74C9E4;
 }
 
+/* All sheet styles */
+
+.charactersheet input, .charactersheet textarea, .charactersheet select {
+    width: 100%;
+    max-width: 100%;
+}
+
 .charsheet.charactersheet img:not([src]) {
     display: none;
-  }  
+}
+.sheet-column-left,
+.sheet-column-right {
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+}
+.sheet-column-right {
+    border-right: 5px solid black;
+}
+
+.sheet-column-left {
+    border-left: 5px solid black;
+}
+
+.charsheet.charactersheet input {
+    font-weight: bold;
+}
 
 /* Hide all tab content by default */
 .charsheet .sheet-pilot,
 .charsheet .sheet-mech,
-.charsheet .sheet-notes {
+.charsheet .sheet-cargo {
     display: none;
+}
+
+
+/* Roller button Wrapper */
+
+.roller-buttons-wrapper {
+    margin-bottom: 12px;
+}
+
+.roller-buttons-wrapper button {
+    margin-bottom: 4px;
 }
 
 /* Tabs Styling */
@@ -47,12 +88,12 @@ h3 {
     display: flex;
 }
 
-.charsheet .sheet-tabstoggle[value="notes"] ~ .sheet-notes {
+.charsheet .sheet-tabstoggle[value="cargo"] ~ .sheet-cargo {
     display: block;
 }
 
 .sheet-tabs-wrapper {
-    margin-bottom: -6px;
+    display: flex;
 }
 
 .sheet-tabs-wrapper button {    
@@ -62,7 +103,7 @@ h3 {
     line-height: 20px;
     text-transform: uppercase;
     letter-spacing: 0px;
-    font-family: sans-serif;
+    font-family: "Spline Sans Mono", monospace;
     padding: 8px 12px;
     border: 0px solid;
     margin-right: 0px;
@@ -94,7 +135,7 @@ input[value="mech"] ~ div.sheet-tabs-wrapper > button:nth-child(2) {
     color: #444;
 }
 
-input[value="notes"] ~ div.sheet-tabs-wrapper > button:nth-child(3) {
+input[value="cargo"] ~ div.sheet-tabs-wrapper > button:nth-child(3) {
     background-color: #74C9E4;
     color: #000;
 }
@@ -116,7 +157,7 @@ input[value="mech"] ~ div.sheet-stats {
     background-color: #73978E;
 }
 
-input[value="notes"] ~ div.sheet-stats {
+input[value="cargo"] ~ div.sheet-stats {
     background-color: #74C9E4;
 }
 
@@ -134,19 +175,39 @@ input[value="notes"] ~ div.sheet-stats {
     align-items: baseline;
     max-width: 32.5%;
     display: inline-flex;
-    padding: 4px 8px;
-    background-color: white;
+    padding: 8px 14px;
+    background-color: black;
+    color: white
 }
 
+.sheet-ap {
+    background-color: #31506A;
+    padding-left: 22px;
+    padding-right: 22px;
+    border-radius: 10px;
+    margin-bottom: -6px;
+}
+
+.sheet-heat label, .sheet-sp label, .sheet-ep label,
+.sheet-hp label, .sheet-ap label, .sheet-tp label {
+    color: white;
+}
+
+.sheet-heat label, .sheet-sp label, .sheet-ep label,
 .sheet-hp label, .sheet-ap label, .sheet-tp label,
+.sheet-heat input, .sheet-sp input, .sheet-ep input,
 .sheet-hp input, .sheet-ap input, .sheet-tp input {
     margin-bottom: 0px;
     position: relative;
     text-decoration: underline;
 }
 
+.sheet-heat {
+    background-color: #C4454A;
+}
+
 .sheet-pilot textarea,
-.sheet-notes textarea,
+.sheet-cargo textarea,
 .sheet-mech textarea {
     max-width: 100%; /* This ensures the textarea does not exceed its parent's width */
     width: 100%; /* This sets the textarea to fill the available space */
@@ -169,6 +230,11 @@ input[value="pilot"] ~ div.sheet-pilot {
     display: inline-block;
 }
 
+.inventory-item > div {
+    display: flex;
+    align-items: baseline;
+}
+
 .sheet-abilities {
     margin-bottom: 8px;
 }
@@ -178,6 +244,30 @@ input[value="pilot"] ~ div.sheet-pilot {
     max-width: 65%;
     height: auto;
     margin: 8px 0;
+}
+
+div[data-groupname="repeating_abilities"] .repitem {
+    padding: 8px;
+}
+
+div[data-groupname="repeating_abilities"] .repitem:nth-child(even) {
+    background-color: #fef7f3;
+}
+
+.pilot-ability-stat-grid {
+    grid-template-columns: 1fr 2fr 2fr;
+    text-align: center;
+    display: grid;
+    gap: 10px;
+    margin: 4px 0;
+}
+
+div[data-groupname="repeating_inventory"] {
+    margin-bottom: 8px;
+}
+
+div[data-groupname="repeating_inventory"] .repitem {
+    border-bottom: 2px solid #e4e4e4;
 }
 
 /* Mech Sheet */
@@ -225,6 +315,7 @@ input[value="mech"] ~ div.sheet-pilot .sheet-column-right {
     align-items: baseline;
 }
 
+.sheet-chassis-info > .mech-chassis-ability-block,
 .sheet-chassis-info > .mech-appearance-block {
     display: block;
 }
@@ -237,15 +328,28 @@ div[data-groupname="repeating_systems"] .repitem:nth-child(even) {
     background-color: #ecf3f2;
 }
 
-/* Notes Sheet */
+.charsheet.charactersheet .collapsed .systems-item, .charsheet.charactersheet .collapsed .sheet-system-stats {
+    display: none;
+}
 
-input[value="notes"] ~ div.sheet-notes {
+.charsheet.charactersheet .collapse-expand:before {
+    content: "▼"; 
+}
+
+.charsheet.charactersheet .collapsed .collapse-expand:before {
+    content: "▶"; 
+}
+
+
+/* cargo Sheet */
+
+input[value="cargo"] ~ div.sheet-cargo {
     background-color: #74C9E4;
     padding: 8px;
 }
 
-input[value="notes"] ~ div.sheet-pilot .sheet-column-left,
-input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
+input[value="cargo"] ~ div.sheet-pilot .sheet-column-left,
+input[value="cargo"] ~ div.sheet-pilot .sheet-column-right {
     background-color: white;
     padding: 8px;
 }
@@ -290,14 +394,12 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
     text-transform: uppercase;
     text-decoration: underline;
     flex: 0;
-    margin-right: 0.5em;
     line-height: 1.2em;
 }
 
 .pilot-inline-attribute {
     display: flex;
     align-items: baseline;
-    margin-top: 8px;
     justify-content: space-between;
 }
 
@@ -395,4 +497,59 @@ input[value="notes"] ~ div.sheet-pilot .sheet-column-right {
     color: white;
     font-family: monospace;
     border: 0px;
+}
+
+/* hide and show repeater sections with the css trick */
+
+.sheet-systems > span.dash-separator {
+    margin: 0 8px;
+}
+
+.sheet-inventory {
+    padding: 8px 0;
+}
+
+.sheet-inventory > span.meta-system-name-collapsed,
+.sheet-ability > span.meta-system-name-collapsed,
+.sheet-systems > span.dash-separator,
+.sheet-systems > span.system-or-module,
+.sheet-systems > span.meta-system-name-collapsed {
+    display: none;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 27px;
+}
+
+input.expand-control[value="0"] ~ .sheet-inventory > *,
+input.expand-control[value="0"] ~ .sheet-ability > *,
+input.expand-control[value="0"] ~ .sheet-systems > * {
+    display: none;
+}
+
+input.expand-control[value="0"] ~ .sheet-inventory > .meta-system-name-collapsed,
+input.expand-control[value="0"] ~ .sheet-ability > .dash-separator,
+input.expand-control[value="0"] ~ .sheet-ability > .system-or-module,
+input.expand-control[value="0"] ~ .sheet-ability > .meta-system-name-collapsed,
+input.expand-control[value="0"] ~ .sheet-systems > .dash-separator,
+input.expand-control[value="0"] ~ .sheet-systems > .system-or-module,
+input.expand-control[value="0"] ~ .sheet-systems > .meta-system-name-collapsed {
+    display: inline-block;
+}
+
+.charsheet.charactersheet input.toggle-checkbox {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    display: inline-block;
+    width: fit-content;
+}
+
+.charsheet.charactersheet .repeating_abilities input.toggle-checkbox {
+    top: 22px;
+}
+
+div[data-groupname="repeating_inventory"] > div.repitem,
+div[data-groupname="repeating_abilities"] > div.repitem,
+div[data-groupname="repeating_systems"] > div.repitem {
+    padding-left: 20px;
 }
