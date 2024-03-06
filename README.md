@@ -15,15 +15,25 @@ Before this sheet becomes officially available, you can manually implement it in
 
 ## Features
 
-- **Pilot Sheet**: Manage your Pilot's abilities, equipment, statistics
-- **Mech Sheet**: Manage your Mech's chassis details, systems, modules, statistics
-- **Roll Templates**: Custom roll templates for most common rolls in-game
+- **Pilot Sheet**: Manage your Pilot's abilities, equipment, statistics.
+- **Mech Sheet**: Manage your Mech's chassis details, systems, modules, statistics.
+- **Roll Templates**: Custom roll templates for most common rolls in-game.
 - **Show Detail Buttons**: Click to show detail in chat about equipment, abilities, systems, modules, etc.
-- **Calculated Cargo Space**: Automatically calculates your mech's cargo space based on its cargo cap & current cargo
+- **Calculated Cargo Space**: Automatically calculates your mech's cargo space based on its cargo cap & current cargo.
+
+
+### Pilot Tab
+![Pilot Tab](/preview_images/pilot-tab.png)
+
+### Mech Tab
+![Mech Tab](/preview_images/mech-tab.png)
+
+### Cargo Tab
+![Cargo Tab](/preview_images/cargo-tab.png)
 
 ## TODO Features
 
 - Chassis Ability enhancements, including roller buttons, or 'show detail in chat' button, or generally some meta fields for things like damage and energy.
-- Show Cargo details in chat button
+- Show Cargo details in chat button.
 - Accessibility labels, aria attributes, il8n, etc.
-- Calculate system and module cap numbers based on equipped modules and systems
+- Calculate system and module cap numbers based on equipped modules and systems.
