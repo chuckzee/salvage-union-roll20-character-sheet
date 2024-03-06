@@ -215,6 +215,10 @@ input[value="cargo"] ~ div.sheet-stats {
 
 /* Pilot Sheet */
 
+.sheet-pilot .sheet-column-left > span {
+    display: block;
+}
+
 input[value="pilot"] ~ div.sheet-pilot {
     background-color: #F38E4B;
     padding: 8px;
@@ -311,6 +315,10 @@ input[value="mech"] ~ div.sheet-pilot .sheet-column-right {
 .sheet-chassis-info > div {
     display: flex;
     align-items: baseline;
+}
+
+.systems-item #system_or_module {
+    flex: .4;
 }
 
 .sheet-chassis-info > .mech-chassis-ability-block,
@@ -586,6 +594,7 @@ input#cargo_over[value="1"] ~ span {
     border: 0px;
 }
 
+.show-inventory-button,
 .show-system-button,
 .show-ability-button {
     background-color: #3e3e3e;
@@ -606,18 +615,16 @@ input#cargo_over[value="1"] ~ span {
     font-size: 14px;
 }
 
+.sheet-rolltemplate-salvageunion-systems h4.sheet-template-ep-chevron,
 .sheet-rolltemplate-salvageunion-ability h4.sheet-ap-chevron {
     background-color: #3e3e3e;
     padding: 4px;
     color: white;
     position: relative;
+    display: inline-block;
 }
 
-.sheet-rolltemplate-salvageunion-ability h4.sheet-ability-range {
-    text-transform: uppercase;
-    font-weight: 800;
-}
-
+.sheet-rolltemplate-salvageunion-systems h4.sheet-template-ep-chevron::after,
 .sheet-rolltemplate-salvageunion-ability h4.sheet-ap-chevron::after {
     content: "";
     position: absolute;
@@ -629,6 +636,11 @@ input#cargo_over[value="1"] ~ span {
     border-left: solid 13px #3e3e3e;
     border-bottom: solid 13px transparent;
     display: block;
+}
+
+.sheet-rolltemplate-salvageunion-ability h4.sheet-ability-range {
+    text-transform: uppercase;
+    font-weight: 800;
 }
 
 .sheet-rolltemplate-salvageunion-ability > div > div {
@@ -651,22 +663,31 @@ input#cargo_over[value="1"] ~ span {
     font-size: 16px;
 }
 
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-body,
 .sheet-rolltemplate-salvageunion-inventory {
     background-color: #A7B6BC;
 }
 
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-header h3,
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-header h4,
 .sheet-rolltemplate-salvageunion-inventory .sheet-inventory-header h4,
 .sheet-rolltemplate-salvageunion-inventory .sheet-inventory-header h3 {
     color: white;
     font-family: "Spline Sans Mono", monospace;
 }
 
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-header h3,
 .sheet-rolltemplate-salvageunion-inventory .sheet-inventory-header h3 {
     font-size: 21px;
 }
 
 .sheet-rolltemplate-salvageunion-inventory .sheet-inventory-header {
     background-color: #063441;
+    padding: 6px;
+}
+
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-header {
+    background-color: #A54733;
     padding: 6px;
 }
 

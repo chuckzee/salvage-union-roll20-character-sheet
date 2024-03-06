@@ -295,6 +295,7 @@
             <input alt="Show/Hide" id="toggleCheckbox" class="toggle-checkbox" type="checkbox" name="attr_expand_item" value="1" checked="true"/>
             <div class="sheet-systems">
                 <span class="meta-system-name-collapsed" name="attr_systems_name"></span><span class="dash-separator"> - </span><span class="system-or-module" name="attr_system_or_module"></span>
+                <button class="show-system-button meta-system-name-collapsed" type="action" name="act_show-system">&#x1F4AC;</button>
                 <div class="system-module-meta">
                     <div class="systems-item">
                         <label data-label-tooltip="Name of the system. e.g. Escape Hatch" for="systems_name">Name:</label>
@@ -303,6 +304,7 @@
                             <option value="System">System</option>
                             <option value="Module">Module</option>
                         </select>
+                        <button class="show-system-button meta-system-name-collapsed" type="action" name="act_show-system">&#x1F4AC;</button>
                     </div>
                 </div>
                 <div class="systems-item">
@@ -400,7 +402,6 @@
         </div>
     </div>
 </rolltemplate>
-<!--{{name=${inventoryName}}} {{InventoryCount=${inventoryCount}}} {{Description=${inventoryDescription}}}-->
 <rolltemplate class="sheet-rolltemplate-salvageunion-inventory">
     <div class="sheet-template-container">
         <div class="inventory-header">
@@ -412,6 +413,32 @@
                 <h4># in Inventory: {{InventoryCount}}</h4>
             </div>
             <div class="roller-inventory-description">
+                <h4>{{Description}}</h4> 
+            </div>
+        </div>
+    </div>
+</rolltemplate>
+<rolltemplate class="sheet-rolltemplate-salvageunion-systems">
+    <div class="sheet-template-container">
+        <div class="template-system-module-header">
+            <h3>{{name}}</h3>
+            <h4>{{Type}}</h4>
+        </div>
+        <div class="template-system-module-body">
+            <div class="template-system-module-tags">
+                <h4 class="template-ep-chevron">{{EP}} EP</h4>
+                <h4 class="template-tags">{{Tags}}</h4>
+            </div>
+            <div class="template-system-module-techlvl">
+                <h4>Tech Lvl: {{TechLevel}}</h4>
+            </div>
+            <div class="template-system-module-slots">
+                <h4>Slots: {{SlotsRequirement}}</h4>
+            </div>
+            <div class="template-system-module-salvagevalue">
+                <h4>Salvage Value: {{SalvageValue}}</h4>
+            </div>
+            <div class="template-system-module-description">
                 <h4>{{Description}}</h4> 
             </div>
         </div>
@@ -732,6 +759,40 @@
                 const inventoryDescription = values[`repeating_inventory_${rowId}_inventory_description`] || 'N/A';
                 const inventoryTags = values[`repeating_inventory_${rowId}_inventory_tags`] || 'N/A';
                 const rollExpression = `&{template:salvageunion-inventory} {{name=${inventoryName}}} {{Tags=${inventoryTags}}} {{InventoryCount=${inventoryCount}}} {{Description=${inventoryDescription}}}`;
+                
+                startRoll(rollExpression, function(rollResults) {
+                    finishRoll(rollResults.rollId, {});
+                });
+            });
+        }
+    });
+
+    on("clicked:repeating_systems:show-system", function(eventInfo) {
+        const rowIdMatch = eventInfo.sourceAttribute.match(/repeating_systems_(-[^_]+)_show-system/);
+        if (rowIdMatch) {
+            const rowId = rowIdMatch[1];
+            const attributesToGet = [
+                `repeating_systems_${rowId}_systems_name`,
+                `repeating_systems_${rowId}_system_or_module`,
+                `repeating_systems_${rowId}_systems_ep`,
+                `repeating_systems_${rowId}_systems_tags`,
+                `repeating_systems_${rowId}_mech_system_tech_lvl`,
+                `repeating_systems_${rowId}_mech_system_slots_req`,
+                `repeating_systems_${rowId}_mech_system_salvage_value`,
+                `repeating_systems_${rowId}_mech_system_description`
+            ];
+
+            getAttrs(attributesToGet, function(values) {
+                console.log(values);
+                const systemName = values[`repeating_systems_${rowId}_systems_name`] || 'N/A';
+                const systemType = values[`repeating_systems_${rowId}_system_or_module`] || 'N/A';
+                const systemEP = values[`repeating_systems_${rowId}_systems_ep`] || '0';
+                const systemTags = values[`repeating_systems_${rowId}_systems_tags`] || 'N/A';
+                const systemTechLevel = values[`repeating_systems_${rowId}_mech_system_tech_lvl`] || 'N/A';
+                const systemSlotsReq = values[`repeating_systems_${rowId}_mech_system_slots_req`] || 'N/A';
+                const systemSalvageValue = values[`repeating_systems_${rowId}_mech_system_salvage_value`] || 'N/A';
+                const systemDescription = values[`repeating_systems_${rowId}_mech_system_description`] || 'N/A';
+                const rollExpression = `&{template:salvageunion-systems} {{name=${systemName}}} {{Type=${systemType}}} {{EP=${systemEP}}} {{Tags=${systemTags}}} {{TechLevel=${systemTechLevel}}} {{SlotsRequirement=${systemSlotsReq}}} {{SalvageValue=${systemSalvageValue}}} {{Description=${systemDescription}}}`;
                 
                 startRoll(rollExpression, function(rollResults) {
                     finishRoll(rollResults.rollId, {});
