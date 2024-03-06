@@ -197,6 +197,7 @@ input[value="cargo"] ~ div.sheet-stats {
     margin-bottom: 0px;
     position: relative;
     text-decoration: underline;
+    text-transform: uppercase;
 }
 
 .sheet-heat {
@@ -420,6 +421,11 @@ input[value="cargo"] ~ div.sheet-pilot .sheet-column-right {
 .cargo-item > div > label {
     padding: 0 0;
     margin: 0 0 4px 0;
+    position: relative;
+    display: block;
+    width: fit-content;
+    text-decoration: underline;
+    text-transform: uppercase;
 }
   
 .cargo-item > div:last-child {
@@ -580,6 +586,107 @@ input#cargo_over[value="1"] ~ span {
     border: 0px;
 }
 
+.show-system-button,
+.show-ability-button {
+    background-color: #3e3e3e;
+}
+
+.sheet-rolltemplate-salvageunion-ability h3 {
+    background-color: #3e3e3e;
+    font-family: "Spline Sans Mono", monospace;
+    color: white;
+    padding: 8px 8px 8px 5%;
+    border-radius: 0% 12px 12px 0%;
+}
+
+.sheet-rolltemplate-salvageunion-ability h4 {
+    font-family: "Spline Sans Mono", monospace;
+    display: inline-block;
+    margin: 0 0;
+    font-size: 14px;
+}
+
+.sheet-rolltemplate-salvageunion-ability h4.sheet-ap-chevron {
+    background-color: #3e3e3e;
+    padding: 4px;
+    color: white;
+    position: relative;
+}
+
+.sheet-rolltemplate-salvageunion-ability h4.sheet-ability-range {
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.sheet-rolltemplate-salvageunion-ability h4.sheet-ap-chevron::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: -13px;
+    height: 0px;
+    width: 0px;
+    border-top: solid 13px transparent;
+    border-left: solid 13px #3e3e3e;
+    border-bottom: solid 13px transparent;
+    display: block;
+}
+
+.sheet-rolltemplate-salvageunion-ability > div > div {
+    background-color: white;
+    width: 87%;
+    padding: 5%;
+}
+
+.sheet-rolltemplate-salvageunion-ability > div > div > div {
+    padding: 4px 0;
+}
+
+.sheet-rolltemplate-salvageunion-ability .sheet-chevron-range-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.sheet-rolltemplate-salvageunion-ability .sheet-action-type {
+    font-size: 16px;
+}
+
+.sheet-rolltemplate-salvageunion-inventory {
+    background-color: #A7B6BC;
+}
+
+.sheet-rolltemplate-salvageunion-inventory .sheet-inventory-header h4,
+.sheet-rolltemplate-salvageunion-inventory .sheet-inventory-header h3 {
+    color: white;
+    font-family: "Spline Sans Mono", monospace;
+}
+
+.sheet-rolltemplate-salvageunion-inventory .sheet-inventory-header h3 {
+    font-size: 21px;
+}
+
+.sheet-rolltemplate-salvageunion-inventory .sheet-inventory-header {
+    background-color: #063441;
+    padding: 6px;
+}
+
+.sheet-rolltemplate-salvageunion-inventory .sheet-inventory-roll-template-container {
+    padding: 6px 6px 8px 6px;
+}
+
+.sheet-rolltemplate-salvageunion-inventory .sheet-roller-inventory-count h4 {
+    text-align: center;
+    background-color: #222;
+    color: white;
+    display: inline-block;
+    padding: 4px;
+    margin-bottom: 6px;
+}
+
+.sheet-rolltemplate-salvageunion-inventory .sheet-roller-inventory-description h4 {
+    font-size: 15px;
+}
+
 /* hide and show repeater sections with the css trick */
 
 .sheet-systems > span.dash-separator {
@@ -590,15 +697,25 @@ input#cargo_over[value="1"] ~ span {
     padding: 8px 0;
 }
 
-.sheet-inventory > span.meta-system-name-collapsed,
-.sheet-ability > span.meta-system-name-collapsed,
-.sheet-systems > span.dash-separator,
-.sheet-systems > span.system-or-module,
-.sheet-systems > span.meta-system-name-collapsed {
+input.expand-control[value="1"] ~ .sheet-inventory > .meta-system-name-collapsed,
+input.expand-control[value="1"] ~ .sheet-ability > .dash-separator,
+input.expand-control[value="1"] ~ .sheet-ability > .system-or-module,
+input.expand-control[value="1"] ~ .sheet-ability > .meta-system-name-collapsed,
+input.expand-control[value="1"] ~ .sheet-systems > .dash-separator,
+input.expand-control[value="1"] ~ .sheet-systems > .system-or-module,
+input.expand-control[value="1"] ~ .sheet-systems > .meta-system-name-collapsed {
     display: none;
     font-size: 14px;
     font-weight: 700;
     line-height: 27px;
+}
+
+input.expand-control[value="0"] ~ .sheet-inventory,
+input.expand-control[value="0"] ~ .sheet-ability,
+input.expand-control[value="0"] ~ .sheet-systems {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 }
 
 input.expand-control[value="0"] ~ .sheet-inventory > *,

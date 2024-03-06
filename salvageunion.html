@@ -1,9 +1,419 @@
+<input type="hidden" class="sheet-tabstoggle" name="attr_sheetTab" value="pilot" />
+<input type="hidden" name="attr_class" value="salvager" />
+<input type="hidden" name="attr_hp" value="10" />
+<input type="hidden" name="attr_hp_max" value="10" />
+<input type="hidden" name="attr_ap" value="5" />
+<input type="hidden" name="attr_ap_max" value="5" />
+<input type="hidden" name="attr_tp" value="0" />
+<input type="hidden" name="collapsedFields" value="" />
+
+<!-- Table for roll results -->
+<input type="hidden" name="attr_Core-Mechanic" value="" />
+
+<div class="roller-buttons-wrapper">
+    <button type="action" name="act_core_mechanic">Core Mechanic Roll</button>
+    <button type="action" name="act_group_initiative">Group Initiative Roll</button>
+    <button type="action" name="act_group_retreat">Group Retreat Roll</button>
+    <button type="action" name="act_critical_damage">Critical Damage Roll</button>
+    <button type="action" name="act_critical_injury">Critical Injury Roll</button>
+    <button type="action" name="act_reactor_overload">Reactor Overload Roll</button>
+    <button type="action" name="act_area_salvage">Area Salvage Roll</button>
+    <button type="action" name="act_mech_salvage">Mech Salvage Roll</button>
+</div>
+<div class="sheet-tabs-wrapper">
+    <button type="action" name="act_pilot">Pilot</button>
+    <button type="action" name="act_mech">Mech</button>
+    <button type="action" name="act_cargo">Cargo</button>
+    <!-- Action Points (AP) -->
+    <div class="sheet-ap">
+        <span>
+            <label data-label-tooltip="Your Pilot has a number of Ability Points (AP) which can be spent to activate their... Abilities!" for="ap_current">AP:</label>
+            <input type="number" name="attr_ap" id="ap_current" value="5" />
+        </span>
+        /
+        <span>
+            <label data-label-tooltip="Your Pilot's maximum AP. These are fully restored after a week of Downtime spent resting." for="ap_max">Max:</label>
+            <input type="number" name="attr_ap_max" id="ap_max" value="5" />
+        </span>
+    </div>
+</div>
+<div class="sheet-pilot sheet-stats">
+    <!-- Health Points (HP) -->
+    <div class="sheet-hp">
+        <span>
+            <label data-label-tooltip="HP or Hit Points are an abstract measure of how resilient your Pilot is. When your Pilot's HP hits zero, roll on the Critical Injury Table." for="hp_current">HP</label>
+            <input type="number" name="attr_hp" id="hp_current" value="10" />
+        </span>
+        /
+        <span>
+            <label data-label-tooltip="Your Pilot's maximum HP. HP can be fully restored following one week spent at a Tech 1-2 Med Bay during Downtime." for="hp_max">Max:</label>
+            <input type="number" name="attr_hp_max" id="hp_max" value="10" />
+        </span>
+    </div>
+
+    <!-- Training Points (TP) -->
+    <div class="sheet-tp">
+        <span>
+            <label data-label-tooltip="Training Points, which can be spent to train new Abilities." for="tp">TP:</label>
+            <input type="number" name="attr_tp" id="tp" value="0" />
+        </span>
+    </div>
+</div>
+<div class="sheet-pilot">
+    <div class="sheet-column-left">
+        <h2>Pilot</h2>
+        <span>Statistics, abilities, and inventory for your Salvage Union Pilot.</span>
+        <img name="attr_character_avatar" alt="Pilot Avatar" id="pilot-avatar"/>
+        <div class="pilot-inline-attribute">
+            <label data-label-tooltip="Your pilot's role on the crew which enables them to take unique abilities." for="class">Class:</label>
+            <select name="attr_class" id="class">
+                <option value="salvager">Salvager</option>
+                <option value="hacker">Hacker</option>
+                <option value="engineer">Engineer</option>
+                <option value="hauler">Hauler</option>
+                <option value="scout">Scout</option>
+                <option value="soldier">Soldier</option>
+                <option value="cyborg">Cyborg</option>
+                <option value="fabricator">Fabricator</option>
+                <option value="union_rep">Union Rep</option>
+                <option value="smuggler">Smuggler</option>
+                <option value="ranger">Ranger</option>
+            </select>
+        </div>
+        <!-- Pilot Information Fields -->
+        <div class="pilot-inline-attribute">
+            <label data-label-tooltip="The name everyone in your crawler refers to your pilot as." for="pilot_callsign">Callsign:</label>
+            <input type="text" name="attr_callsign" id="pilot_callsign" />
+        </div>
+        <div class="pilot-inline-attribute">
+            <label data-label-tooltip="A phrase your pilot happens to be fond of using. Can be uttered as a free action or reaction to re-roll dice. See Pg. 19 in the Workshop Manual." for="pilot_motto">Motto:</label>
+            <input type="text" name="attr_motto" id="pilot_motto" />
+        </div>
+        <div class="pilot-inline-attribute">
+            <label data-label-tooltip="An item that is personal and important to your pilot. Can enable re-rolls, per Pg. 18 in the Workshop Manual." for="pilot_keepsake">Keepsake:</label>
+            <input type="text" name="attr_keepsake" id="pilot_keepsake" />
+        </div>
+        <div class="pilot-block-attribute">
+            <label data-label-tooltip="The appearance of your pilot, can include gender, pronouns, their look, clothing, and more." for="pilot_appearance">Appearance:</label>
+            <textarea name="attr_appearance" id="pilot_appearance"></textarea>
+        </div>
+        <div class="pilot-block-attribute">
+            <label data-label-tooltip="Where your pilot came from, or who they were before joining the Union Crawler." for="pilot_background">Background:</label>
+            <textarea name="attr_background" id="pilot_background"></textarea>
+        </div>
+    </div>
+    <div class="sheet-column-right">
+        <!-- Abilities -->
+        <div class="sheet-abilities">
+            <h3>Abilities</h3>
+            <fieldset class="repeating_abilities">
+                <input class="expand-control" type="hidden" name="attr_expand_item" value="1"/>
+                <input alt="Show/Hide" id="toggleCheckbox" class="toggle-checkbox" type="checkbox" name="attr_expand_item" value="1" checked="true"/>
+                <div class="sheet-ability">
+                    <span class="meta-system-name-collapsed" name="attr_ability_name"></span>
+                    <button class="show-ability-button meta-system-name-collapsed" type="action" name="act_show-ability">&#x1F4AC;</button>
+                    <div class="pilot-inline-attribute">
+                        <label data-label-tooltip="The name of your pilot's ability." for="ability_name">NAME:</label>
+                        <input type="text" name="attr_ability_name" id="ability_name" placeholder="Name"/>
+                        <button class="show-ability-button" type="action" name="act_show-ability">&#x1F4AC;</button>
+                    </div>
+                    <div>
+                        <label data-label-tooltip="The Description of your pilot's ability - list all the particulars here for easy reference." for="ability_description">DESCRIPTION:</label>
+                        <textarea name="attr_ability_description" placeholder="Description" id="ability_description"></textarea>
+                    </div>
+                    <div class="pilot-ability-stat-grid">
+                        <div>
+                            <label data-label-tooltip="The Action Point cost of your pilot's ability." for="ability_ap">AP:</label>
+                            <input type="number" name="attr_ability_ap" placeholder="AP Value" min="0" id="ability_ap"/>
+                        </div>
+                        <div>
+                            <label data-label-tooltip="The range of your pilot's ability. A 'far' ability can be used at Close range, and so on." for="ability_range">RANGE:</label>
+                            <select name="attr_ability_range" id="ability_range">
+                                <option value="N/A">N/A</option>
+                                <option value="Close">Close</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Long">Long</option>
+                                <option value="Far">Far</option>
+                            </select>
+                        </div>
+                        <div class="tooltip-slide">
+                            <label data-label-tooltip="The action's type - this will generally dictate how long something can take, or if it's always on, or if it's something you would do in your off hours." for="ability_actiontype">TYPE:</label>
+                            <select name="attr_ability_actiontype" id="ability_actiontype">
+                                <option value="Passive">Passive</option>
+                                <option value="Free">Free</option>
+                                <option value="Reaction">Reaction</option>
+                                <option value="Turn">Turn</option>
+                                <option value="Short">Short</option>
+                                <option value="Long">Long</option>
+                                <option value="Downtime">Downtime</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <!-- Inventory -->
+        <div class="sheet-inventory">
+            <h3>Inventory</h3>
+            <fieldset class="repeating_inventory">
+                <input class="expand-control" type="hidden" name="attr_expand_item" value="1"/>
+                <input alt="Show/Hide" id="toggleCheckbox" class="toggle-checkbox" type="checkbox" name="attr_expand_item" value="1" checked="true"/>
+                <div class="sheet-inventory">
+                    <span class="meta-system-name-collapsed" name="attr_inventory_name"></span>
+                    <button class="meta-system-name-collapsed show-system-button" type="action" name="act_show-inventory">&#x1F4AC;</button>
+                    <span class="inventory-item">
+                        <div>
+                            <label data-label-tooltip="The name of the item in your pilot's inventory." for="inventoryName">Name:</label>
+                            <input id="inventoryName" type="text" name="attr_inventory_name" placeholder="Name"/>
+                            <button class="show-system-button" type="action" name="act_show-inventory">&#x1F4AC;</button>
+                        </div>
+                        <div>
+                            <label data-label-tooltip="Tags of you equipment that are handy for quick reference, such as type fo action or number of uses." for="tagsOfInventory">TAGS:</label>
+                            <input id="tagsOfInventory" type="text" name="attr_inventory_tags" placeholder="Action Type, Range, # of Uses" />
+                        </div>
+                        <div>
+                            <label data-label-tooltip="The quantity of the item in your pilot's inventory. Optional!" for="numberInInventory">Count:</label>
+                            <input id="numberInInventory" type="number" name="attr_inventory_count" placeholder="#" min="0"/>
+                        </div>
+                    </span>
+                    <div>
+                        <label data-label-tooltip="The description of the item in your pilot's inventory. Include details you'll need to remember later." for="inventoryItemDescription">Description:</label>
+                        <textarea id="inventoryItemDescription" name="attr_inventory_description" placeholder="Description"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<div class="sheet-mech sheet-stats">
+    <!-- Structure Points (SP) -->
+    <div class="sheet-sp">
+        <span>
+            <label data-label-tooltip="Structure Points, an abstract representation of the resilience of your Pilot's Mech." for="sp">SP</label>
+            <input type="number" name="attr_sp" id="sp" value="" />
+        </span>
+        /
+        <span>
+            <label data-label-tooltip="The Mech's maximum Structure Points. These can be restored during Downtime or when repaired in the field." for="sp_max">Cap:</label>
+            <input type="number" name="attr_sp_max" id="sp_max" value="" />
+        </span>
+    </div>
+
+    <!-- Energy Points (EP) -->
+    <div class="sheet-ep">
+        <span>
+            <label data-label-tooltip="Energy Points abstractly represent the energy output and efficiency of your Mechs reactor, as well as its stored power." for="ep">EP:</label>
+            <input type="number" name="attr_ep" id="ep" value="" />
+        </span>
+        /
+        <span>
+            <label  data-label-tooltip="Energy Points are restored uring Downtime or with specialized Systems and Modules." for="ep_max">Cap:</label>
+            <input type="number" name="attr_ep_max" id="ep_max" value="" />
+        </span>
+    </div>
+
+    <!-- Heat -->
+    <div class="sheet-heat">
+        <span>
+            <label  data-label-tooltip="Heat is generated when your Pilot activates some Systems and Modules, or when the Reactor of your Mech is 'Pushed'." for="heat">HEAT:</label>
+            <input type="number" name="attr_heat" id="heat" value="" />
+        </span>
+        /
+        <span>
+            <label data-label-tooltip="If the Mech's Heat reaches the Heat Capacity (CAP), the reactor is at risk of overloading. Shutting down a Mech for an hour can dissipate Heat." for="heat_max">Cap:</label>
+            <input type="number" name="attr_heat_max" id="heat_max" value="" />
+        </span>
+    </div>
+</div>
+<div class="sheet-mech">
+    <div class="sheet-column-left">
+        <h2>Mech</h2>
+        <div class="sheet-chassis-info">
+            <div>
+                <label data-label-tooltip="The name of your Pilot's Mech. Like Felicity. Or Boomstick." for="mech_name">Name:</label>
+                <input type="text" name="attr_mech_name" id="mech_name" />
+            </div>
+        </div>
+        <img name="attr_character_token">
+        <h3>Chassis Stats</h3>
+        <div class="sheet-chassis-info">
+            <div>
+                <label data-label-tooltip="The Chassis is the Mech's 'Model,' and determines the Chassis Ability and core stats of the Mech." for="mech_chassis">Chassis:</label>
+                <input type="text" name="attr_mech_chassis" id="mech_chassis" />
+            </div>
+            <div>
+                <label data-label-tooltip="A Mech Pattern is a template of preset configurations for a Mech. You don't need one, but they're handy." for="mech_pattern">Pattern:</label>
+                <input type="text" name="attr_mech_pattern" id="mech_pattern" />
+            </div>
+            <div>
+                <label data-label-tooltip="A unique trademark of your Pilot's Mech. For example, their comms and sensor array could look like rabbit ears." for="mech_quirk">Quirk:</label>
+                <input type="text" name="attr_mech_quirk" id="mech_quirk" />
+            </div>
+        </div>
+        <div class="sheet-chassis-stats">
+            <div>
+                <label data-label-tooltip="A Mech can only install as many Systems as it has System Slots." for="mech_system_slots">System Slots:</label>
+                <input type="number" name="attr_mech_system_slots" id="mech_system_slots" />
+            </div>
+            <div>
+                <label data-label-tooltip="A Mech can only install as many Modules as it has Module Slots." for="mech_module_slots">Module Slots:</label>
+                <input type="number" name="attr_mech_module_slots" id="mech_module_slots" />
+            </div>
+            <div>
+                <label data-label-tooltip="The maximum amount of cargo this Mech can carry in its Cargo hold, which is represented on the next tab over." for="mech_cargo_cap">Cargo Cap.:</label>
+                <input type="number" name="attr_mech_cargo_cap" id="mech_cargo_cap" />
+            </div>
+            <div>
+                <label data-label-tooltip="A Mech's Tech Level broadly represents how advanced it is." for="mech_tech_level">Tech Level:</label>
+                <input type="number" name="attr_mech_tech_level" id="mech_tech_level" />
+            </div>
+            <div>
+                <label data-label-tooltip="Salvage Value represents the sum of a Mech, System, or Module's material components." for="mech_salvage_value">Salvage Value:</label>
+                <input type="number" name="attr_mech_salvage_value" id="mech_salvage_value" />
+            </div>
+        </div>
+        <div class="sheet-chassis-info">
+            <div class="mech-chassis-ability-block">
+                <label data-label-tooltip="Each Mech Chassis has a unique Ability specific to its design." for="mech_chassis_ability">Chassis Ability:</label>
+                <textarea name="attr_mech_chassis_ability" id="mech_chassis_ability">
+                </textarea>
+            </div>
+        </div>
+        <div class="sheet-chassis-info">
+            <div class="mech-appearance-block">
+                <label data-label-tooltip="While the Chassis is the stock form of the Mech, the Appearance is dictated by what its Pilot did to it to make it uniquely theirs." for="mech_appearance">Appearance:</label>
+                <textarea name="attr_mech_appearance" id="mech_appearance">
+                </textarea>
+            </div>
+        </div>
+    </div>
+    <div class="sheet-column-right">
+        <h3>Systems & Modules</h3>
+        <fieldset class="repeating_systems">
+            <input class="expand-control" type="hidden" name="attr_expand_item" value="1"/>
+            <input alt="Show/Hide" id="toggleCheckbox" class="toggle-checkbox" type="checkbox" name="attr_expand_item" value="1" checked="true"/>
+            <div class="sheet-systems">
+                <span class="meta-system-name-collapsed" name="attr_systems_name"></span><span class="dash-separator"> - </span><span class="system-or-module" name="attr_system_or_module"></span>
+                <div class="system-module-meta">
+                    <div class="systems-item">
+                        <label data-label-tooltip="Name of the system. e.g. Escape Hatch" for="systems_name">Name:</label>
+                        <input type="text" name="attr_systems_name"  id="systems_name" placeholder="Name"/>
+                        <select type="text" name="attr_system_or_module"  id="system_or_module">
+                            <option value="System">System</option>
+                            <option value="Module">Module</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="systems-item">
+                    <label data-label-tooltip="Tags for the system - descriptive tags that don't fit the other fields. Melee, Recommended, e.g." for="systems_tags">Tags:</label>
+                    <input type="text" name="attr_systems_tags"  id="systems_tags" placeholder="Tags - Melee, Salvaging e.g."/>
+                </div>
+                <div class="sheet-system-stats">
+                    <div>
+                        <label data-label-tooltip="Required Chassis Tech level to use this system or module." for="mech_system_tech_lvl">TECH LVL:</label>
+                        <input type="number" name="attr_mech_system_tech_lvl" id="mech_system_tech_lvl" />
+                    </div>
+                    <div>
+                        <label data-label-tooltip="Required slots to utilize this module or system on your chassis." for="mech_system_slots_req">SLOTS REQ.:</label>
+                        <input type="number" name="attr_mech_system_slots_req" id="mech_system_slots_req" />
+                    </div>
+                    <div class="tooltip-slide">
+                        <label data-label-tooltip="Sale value of this module or system." for="mech_system_salvage_value">SALVAGE VAL.:</label>
+                        <input type="number" name="attr_mech_system_salvage_value" id="mech_system_salvage_value" />
+                    </div>
+                </div>
+                <div>
+                    <label data-label-tooltip="Description of the module or system, including any actions, additional bonuses provided, or possible nuclear rammifications from use." for="mech_system_description">Description:</label>
+                    <textarea name="attr_mech_system_description" id="mech_system_description">
+                    </textarea>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div class="sheet-cargo sheet-stats">
+    <div class="sheet-hp sheet-cargo-stats">
+        <span>
+            <input type="hidden" name="attr_cargo_over" id="cargo_over"/>
+            <label data-label-tooltip="Your cargo load calculated from your current listed cargo.">LOAD:</label>
+            <span name="attr_cargo_total" class="cargo-count"></span>
+        </span>
+        /
+        <span>
+            <label data-label-tooltip="Your mech's cargo cap - the max capacity for what your mech can carry. Generally the total Salvage Value of cargo = how many slots it will take up." for="hp_max">MAX:</label>
+            <span name="attr_mech_cargo_cap"></span>
+        </span>
+    </div>
+</div>
+<div class="sheet-cargo">
+    <div class="cargo-wrapper">
+        <h2>Cargo</h2>
+        <fieldset class="repeating_cargo">
+            <div class="sheet-cargo-item">
+                <div class="cargo-item">
+                    <div>
+                        <label data-label-tooltip="The name of the piece of Cargo in your mech's cargo hold." for="cargoName">NAME:</label>
+                        <input id="cargoName" type="text" name="attr_cargo_name" placeholder="Cargo Name" value=""/>
+                    </div>
+                    <div>
+                        <label data-label-tooltip="The cargo slots taken up by the cargo. Mech chassis and parts' savlage value = the amount of slots it takes up." for="amountOfCargo">SLOTS:</label>
+                        <input id="amountOfCargo" type="number" name="attr_cargo_count" placeholder="#" min="0"/>
+                    </div>
+                    <div class="tooltip-slide">
+                        <label data-label-tooltip="The salvage value of the cargo in your mech's cargo hold." for="valueOfCargo">VALUE:</label>
+                        <input id="valueOfCargo" type="number" name="attr_cargo_value" placeholder="#" min="0"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="cargo-description" data-label-tooltip="Description of the Cargo your mech is carrying." for="cargoItemDescription">DESCRIPTION:</label>
+                    <textarea id="cargoItemDescription" name="attr_cargo_description" placeholder="Description"></textarea>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
 <rolltemplate class="sheet-rolltemplate-salvageunion">
     <div class="sheet-template-container">
         <h3>{{name}}</h3>
         <div class="sheet-results">
             <h4>Roll: {{roll1}}</h4>
             <h4>{{{computed::roll1}}}</h4>
+        </div>
+    </div>
+</rolltemplate>
+<rolltemplate class="sheet-rolltemplate-salvageunion-ability">
+    <div class="sheet-template-container">
+        <h3>{{name}}</h3>
+        <div class="ability-roll-template-container">
+            <div>
+                <h4 class="ability-range">Range: {{Range}}</h4>
+            </div>
+            <div class="chevron-range-container">
+                <h4 class="ap-chevron">{{AP}} AP</h4>
+                <h4 class="action-type">&#x1F552;{{ActionType}}</h4> 
+            </div>
+            <div>
+                <h4 class="ability-description">{{Description}}</h4> 
+            </div>
+        </div>
+    </div>
+</rolltemplate>
+<!--{{name=${inventoryName}}} {{InventoryCount=${inventoryCount}}} {{Description=${inventoryDescription}}}-->
+<rolltemplate class="sheet-rolltemplate-salvageunion-inventory">
+    <div class="sheet-template-container">
+        <div class="inventory-header">
+            <h3>{{name}}</h3>
+            <h4>{{Tags}}</h4>
+        </div>
+        <div class="inventory-roll-template-container">
+            <div class="roller-inventory-count">
+                <h4># in Inventory: {{InventoryCount}}</h4>
+            </div>
+            <div class="roller-inventory-description">
+                <h4>{{Description}}</h4> 
+            </div>
         </div>
     </div>
 </rolltemplate>
@@ -275,372 +685,58 @@
             );
         });
     });
+
+    on("clicked:repeating_abilities:show-ability", function(eventInfo) {
+        const rowIdMatch = eventInfo.sourceAttribute.match(/repeating_abilities_(-[^_]+)_show-ability/);
+        if (rowIdMatch) {
+            const rowId = rowIdMatch[1];
+            const attributesToGet = [
+                `repeating_abilities_${rowId}_ability_name`,
+                `repeating_abilities_${rowId}_ability_ap`,
+                `repeating_abilities_${rowId}_ability_range`,
+                `repeating_abilities_${rowId}_ability_description`,
+                `repeating_abilities_${rowId}_ability_actiontype`
+            ];
+
+            getAttrs(attributesToGet, function(values) {
+                console.log(values);
+                const abilityName = values[`repeating_abilities_${rowId}_ability_name`] || 'N/A';
+                const abilityAp = values[`repeating_abilities_${rowId}_ability_ap`] || 'N/A';
+                const abilityRange = values[`repeating_abilities_${rowId}_ability_range`] || 'N/A';
+                const abilityDescription = values[`repeating_abilities_${rowId}_ability_description`] || 'N/A';
+                const abilityType = values[`repeating_abilities_${rowId}_ability_actiontype`] || 'N/A';
+                const rollExpression = `&{template:salvageunion-ability} {{name=${abilityName}}} {{AP=${abilityAp}}} {{Range=${abilityRange}}} {{ActionType=${abilityType}}} {{Description=${abilityDescription}}}`;
+                
+                startRoll(rollExpression, function(rollResults) {
+                    finishRoll(rollResults.rollId, {});
+                });
+            });
+        }
+    });
+
+    on("clicked:repeating_inventory:show-inventory", function(eventInfo) {
+        const rowIdMatch = eventInfo.sourceAttribute.match(/repeating_inventory_(-[^_]+)_show-inventory/);
+        if (rowIdMatch) {
+            const rowId = rowIdMatch[1];
+            const attributesToGet = [
+                `repeating_inventory_${rowId}_inventory_name`,
+                `repeating_inventory_${rowId}_inventory_count`,
+                `repeating_inventory_${rowId}_inventory_description`,
+                `repeating_inventory_${rowId}_inventory_tags`
+            ];
+
+            getAttrs(attributesToGet, function(values) {
+                console.log(values);
+                const inventoryName = values[`repeating_inventory_${rowId}_inventory_name`] || 'N/A';
+                const inventoryCount = values[`repeating_inventory_${rowId}_inventory_count`] || 'N/A';
+                const inventoryDescription = values[`repeating_inventory_${rowId}_inventory_description`] || 'N/A';
+                const inventoryTags = values[`repeating_inventory_${rowId}_inventory_tags`] || 'N/A';
+                const rollExpression = `&{template:salvageunion-inventory} {{name=${inventoryName}}} {{Tags=${inventoryTags}}} {{InventoryCount=${inventoryCount}}} {{Description=${inventoryDescription}}}`;
+                
+                startRoll(rollExpression, function(rollResults) {
+                    finishRoll(rollResults.rollId, {});
+                });
+            });
+        }
+    });
 </script>
-<input type="hidden" class="sheet-tabstoggle" name="attr_sheetTab" value="pilot" />
-<input type="hidden" name="attr_class" value="salvager" />
-<input type="hidden" name="attr_hp" value="10" />
-<input type="hidden" name="attr_hp_max" value="10" />
-<input type="hidden" name="attr_ap" value="5" />
-<input type="hidden" name="attr_ap_max" value="5" />
-<input type="hidden" name="attr_tp" value="0" />
-<input type="hidden" name="collapsedFields" value="" />
-
-<!-- Table for roll results -->
-<input type="hidden" name="attr_Core-Mechanic" value="" />
-
-<div class="roller-buttons-wrapper">
-    <button type="action" name="act_core_mechanic">Core Mechanic Roll</button>
-    <button type="action" name="act_group_initiative">Group Initiative Roll</button>
-    <button type="action" name="act_group_retreat">Group Retreat Roll</button>
-    <button type="action" name="act_critical_damage">Critical Damage Roll</button>
-    <button type="action" name="act_critical_injury">Critical Injury Roll</button>
-    <button type="action" name="act_reactor_overload">Reactor Overload Roll</button>
-    <button type="action" name="act_area_salvage">Area Salvage Roll</button>
-    <button type="action" name="act_mech_salvage">Mech Salvage Roll</button>
-</div>
-<div class="sheet-tabs-wrapper">
-    <button type="action" name="act_pilot">Pilot</button>
-    <button type="action" name="act_mech">Mech</button>
-    <button type="action" name="act_cargo">Cargo</button>
-    <!-- Action Points (AP) -->
-    <div class="sheet-ap">
-        <span>
-            <label data-label-tooltip="Your pilot's role on the crew which enables them to take unique abilities." for="ap_current">AP:</label>
-            <input type="number" name="attr_ap" id="ap_current" value="5" />
-        </span>
-        /
-        <span>
-            <label data-label-tooltip="Your pilot's role on the crew which enables them to take unique abilities." for="ap_max">Max:</label>
-            <input type="number" name="attr_ap_max" id="ap_max" value="5" />
-        </span>
-    </div>
-</div>
-<div class="sheet-pilot sheet-stats">
-    <!-- Health Points (HP) -->
-    <div class="sheet-hp">
-        <span>
-            <label data-label-tooltip="Your pilot's role on the crew which enables them to take unique abilities." for="hp_current">HP</label>
-            <input type="number" name="attr_hp" id="hp_current" value="10" />
-        </span>
-        /
-        <span>
-            <label data-label-tooltip="Your pilot's role on the crew which enables them to take unique abilities." for="hp_max">Max:</label>
-            <input type="number" name="attr_hp_max" id="hp_max" value="10" />
-        </span>
-    </div>
-
-    <!-- Training Points (TP) -->
-    <div class="sheet-tp">
-        <span>
-            <label data-label-tooltip="Your pilot's role on the crew which enables them to take unique abilities." for="tp">TP:</label>
-            <input type="number" name="attr_tp" id="tp" value="0" />
-        </span>
-    </div>
-</div>
-<div class="sheet-pilot">
-    <div class="sheet-column-left">
-        <h2>Pilot</h2>
-        <span>Statistics, abilities, and inventory for your Salvage Union Pilot.</span>
-        <img name="attr_character_avatar" alt="Pilot Avatar" id="pilot-avatar"/>
-        <div class="pilot-inline-attribute">
-            <label data-label-tooltip="Your pilot's role on the crew which enables them to take unique abilities." for="class">Class:</label>
-            <select name="attr_class" id="class">
-                <option value="salvager">Salvager</option>
-                <option value="hacker">Hacker</option>
-                <option value="engineer">Engineer</option>
-                <option value="hauler">Hauler</option>
-                <option value="scout">Scout</option>
-                <option value="soldier">Soldier</option>
-                <option value="cyborg">Cyborg</option>
-                <option value="fabricator">Fabricator</option>
-                <option value="union_rep">Union Rep</option>
-                <option value="smuggler">Smuggler</option>
-                <option value="ranger">Ranger</option>
-            </select>
-        </div>
-        <!-- Pilot Information Fields -->
-        <div class="pilot-inline-attribute">
-            <label data-label-tooltip="The name everyone in your crawler refers to your pilot as." for="pilot_callsign">Callsign:</label>
-            <input type="text" name="attr_callsign" id="pilot_callsign" />
-        </div>
-        <div class="pilot-inline-attribute">
-            <label data-label-tooltip="A phrase your pilot happens to be fond of using. Can be uttered as a free action or reaction to re-roll dice. See Pg. 19 in the Workshop Manual." for="pilot_motto">Motto:</label>
-            <input type="text" name="attr_motto" id="pilot_motto" />
-        </div>
-        <div class="pilot-inline-attribute">
-            <label data-label-tooltip="An item that is personal and important to your pilot. Can enable re-rolls, per Pg. 18 in the Workshop Manual." for="pilot_keepsake">Keepsake:</label>
-            <input type="text" name="attr_keepsake" id="pilot_keepsake" />
-        </div>
-        <div class="pilot-block-attribute">
-            <label data-label-tooltip="The appearance of your pilot, can include gender, pronouns, their look, clothing, and more." for="pilot_appearance">Appearance:</label>
-            <textarea name="attr_appearance" id="pilot_appearance"></textarea>
-        </div>
-        <div class="pilot-block-attribute">
-            <label data-label-tooltip="Where your pilot came from, or who they were before joining the Union Crawler." for="pilot_background">Background:</label>
-            <textarea name="attr_background" id="pilot_background"></textarea>
-        </div>
-    </div>
-    <div class="sheet-column-right">
-        <!-- Abilities -->
-        <div class="sheet-abilities">
-            <h3>Abilities</h3>
-            <fieldset class="repeating_abilities">
-                <input class="expand-control" type="hidden" name="attr_expand_item" value="1"/>
-                <input alt="Show/Hide" id="toggleCheckbox" class="toggle-checkbox" type="checkbox" name="attr_expand_item" value="1" checked="true"/>
-                <div class="sheet-ability">
-                    <span class="meta-system-name-collapsed" name="attr_ability_name"></span>
-                    <div class="pilot-inline-attribute">
-                        <label data-label-tooltip="The name of your pilot's ability." for="ability_name">NAME:</label>
-                        <input type="text" name="attr_ability_name" id="ability_name" placeholder="Name"/>
-                    </div>
-                    <div>
-                        <label data-label-tooltip="The Description of your pilot's ability - list all the particulars here for easy reference." for="ability_description">DESCRIPTION:</label>
-                        <textarea name="attr_ability_description" placeholder="Description" id="ability_description"></textarea>
-                    </div>
-                    <div class="pilot-ability-stat-grid">
-                        <div>
-                            <label data-label-tooltip="The Action Point cost of your pilot's ability." for="ability_ap">AP:</label>
-                            <input type="number" name="attr_ability_ap" placeholder="AP Value" min="0" id="ability_ap"/>
-                        </div>
-                        <div>
-                            <label data-label-tooltip="The range of your pilot's ability." for="ability_range">RANGE:</label>
-                            <select name="attr_ability_range" id="ability_range">
-                                <option value="Close">N/A</option>
-                                <option value="Close">Close</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Long">Long</option>
-                                <option value="Far">Far</option>
-                            </select>
-                        </div>
-                        <div class="tooltip-slide">
-                            <label data-label-tooltip="The action's type - this will generally dictate how long something can take, or if it's always on, or if it's something you would do in your off hours." for="ability_actiontype">TYPE:</label>
-                            <select name="attr_ability_actiontype" id="ability_actiontype">
-                                <option value="Passive">Passive</option>
-                                <option value="Free">Free</option>
-                                <option value="Reaction">Reaction</option>
-                                <option value="Turn">Turn</option>
-                                <option value="Short">Short</option>
-                                <option value="Long">Long</option>
-                                <option value="Downtime">Downtime</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-
-        <!-- Inventory -->
-        <div class="sheet-inventory">
-            <h3>Inventory</h3>
-            <fieldset class="repeating_inventory">
-                <input class="expand-control" type="hidden" name="attr_expand_item" value="1"/>
-                <input alt="Show/Hide" id="toggleCheckbox" class="toggle-checkbox" type="checkbox" name="attr_expand_item" value="1" checked="true"/>
-                <div class="sheet-inventory">
-                    <span class="meta-system-name-collapsed" name="attr_inventory_name"></span>
-                    <span class="inventory-item">
-                        <div>
-                            <label data-label-tooltip="The name of the item in your pilot's inventory." for="inventoryName">Name:</label>
-                            <input id="inventoryName" type="text" name="attr_inventory_name" placeholder="Name"/>
-                        </div>
-                        <div>
-                            <label data-label-tooltip="The quantity of the item in your pilot's inventory. Optional!" for="numberInInventory">Count:</label>
-                            <input id="numberInInventory" type="number" name="attr_inventory_count" placeholder="#" min="0"/>
-                        </div>
-                    </span>
-                    <div>
-                        <label data-label-tooltip="The description of the item in your pilot's inventory. Include details you'll need to remember later." for="inventoryItemDescription">Description:</label>
-                        <textarea id="inventoryItemDescription" name="attr_inventory_description" placeholder="Description"></textarea>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-    </div>
-</div>
-<div class="sheet-mech sheet-stats">
-    <!-- Structure Points (SP) -->
-    <div class="sheet-sp">
-        <span>
-            <label data-label-tooltip="Where your pilot came from, or who they were before joining the Union Crawler." for="sp">SP</label>
-            <input type="number" name="attr_sp" id="sp" value="" />
-        </span>
-        /
-        <span>
-            <label data-label-tooltip="Where your pilot came from, or who they were before joining the Union Crawler." for="sp_max">Cap:</label>
-            <input type="number" name="attr_sp_max" id="sp_max" value="" />
-        </span>
-    </div>
-
-    <!-- Energy Points (EP) -->
-    <div class="sheet-ep">
-        <span>
-            <label data-label-tooltip="Where your pilot came from, or who they were before joining the Union Crawler." for="ep">EP:</label>
-            <input type="number" name="attr_ep" id="ep" value="" />
-        </span>
-        /
-        <span>
-            <label  data-label-tooltip="Where your pilot came from, or who they were before joining the Union Crawler." for="ep_max">Cap:</label>
-            <input type="number" name="attr_ep_max" id="ep_max" value="" />
-        </span>
-    </div>
-
-    <!-- Heat -->
-    <div class="sheet-heat">
-        <span>
-            <label  data-label-tooltip="Where your pilot came from, or who they were before joining the Union Crawler." for="heat">HEAT:</label>
-            <input type="number" name="attr_heat" id="heat" value="" />
-        </span>
-        /
-        <span>
-            <label data-label-tooltip="Where your pilot came from, or who they were before joining the Union Crawler." for="heat_max">Cap:</label>
-            <input type="number" name="attr_heat_max" id="heat_max" value="" />
-        </span>
-    </div>
-</div>
-<div class="sheet-mech">
-    <div class="sheet-column-left">
-        <h2>Mech</h2>
-        <div class="sheet-chassis-info">
-            <div>
-                <label data-label-tooltip="" for="mech_name">Name:</label>
-                <input type="text" name="attr_mech_name" id="mech_name" />
-            </div>
-        </div>
-        <img name="attr_character_token">
-        <h3>Chassis Stats</h3>
-        <div class="sheet-chassis-info">
-            <div>
-                <label for="mech_chassis">Chassis:</label>
-                <input type="text" name="attr_mech_chassis" id="mech_chassis" />
-            </div>
-            <div>
-                <label for="mech_pattern">Pattern:</label>
-                <input type="text" name="attr_mech_pattern" id="mech_pattern" />
-            </div>
-            <div>
-                <label data-label-tooltip="" for="mech_quirk">Quirk:</label>
-                <input type="text" name="attr_mech_quirk" id="mech_quirk" />
-            </div>
-        </div>
-        <div class="sheet-chassis-stats">
-            <div>
-                <label for="mech_system_slots">System Slots:</label>
-                <input type="number" name="attr_mech_system_slots" id="mech_system_slots" />
-            </div>
-            <div>
-                <label for="mech_module_slots">Module Slots:</label>
-                <input type="number" name="attr_mech_module_slots" id="mech_module_slots" />
-            </div>
-            <div>
-                <label for="mech_cargo_cap">Cargo Cap.:</label>
-                <input type="number" name="attr_mech_cargo_cap" id="mech_cargo_cap" />
-            </div>
-            <div>
-                <label for="mech_tech_level">Tech Level:</label>
-                <input type="number" name="attr_mech_tech_level" id="mech_tech_level" />
-            </div>
-            <div>
-                <label for="mech_salvage_value">Salvage Value:</label>
-                <input type="number" name="attr_mech_salvage_value" id="mech_salvage_value" />
-            </div>
-        </div>
-        <div class="sheet-chassis-info">
-            <div class="mech-chassis-ability-block">
-                <label data-label-tooltip="" for="mech_chassis_ability">Chassis Ability:</label>
-                <textarea name="attr_mech_chassis_ability" id="mech_chassis_ability">
-                </textarea>
-            </div>
-        </div>
-        <div class="sheet-chassis-info">
-            <div class="mech-appearance-block">
-                <label data-label-tooltip="" for="mech_appearance">Appearance:</label>
-                <textarea name="attr_mech_appearance" id="mech_appearance">
-                </textarea>
-            </div>
-        </div>
-    </div>
-    <div class="sheet-column-right">
-        <h3>Systems & Modules</h3>
-        <fieldset class="repeating_systems">
-            <input class="expand-control" type="hidden" name="attr_expand_item" value="1"/>
-            <input alt="Show/Hide" id="toggleCheckbox" class="toggle-checkbox" type="checkbox" name="attr_expand_item" value="1" checked="true"/>
-            <div class="sheet-systems">
-                <span class="meta-system-name-collapsed" name="attr_systems_name"></span><span class="dash-separator"> - </span><span class="system-or-module" name="attr_system_or_module"></span>
-                <div class="system-module-meta">
-                    <div class="systems-item">
-                        <label data-label-tooltip="Name of the system. e.g. Escape Hatch" for="systems_name">Name:</label>
-                        <input type="text" name="attr_systems_name"  id="systems_name" placeholder="Name"/>
-                        <select type="text" name="attr_system_or_module"  id="system_or_module">
-                            <option value="System">System</option>
-                            <option value="Module">Module</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="systems-item">
-                    <label data-label-tooltip="Tags for the system - descriptive tags that don't fit the other fields. Melee, Recommended, e.g." for="systems_tags">Tags:</label>
-                    <input type="text" name="attr_systems_tags"  id="systems_tags" placeholder="Tags - Melee, Salvaging e.g."/>
-                </div>
-                <div class="sheet-system-stats">
-                    <div>
-                        <label data-label-tooltip="Required Chassis Tech level to use this system or module." for="mech_system_tech_lvl">TECH LVL:</label>
-                        <input type="number" name="attr_mech_system_tech_lvl" id="mech_system_tech_lvl" />
-                    </div>
-                    <div>
-                        <label data-label-tooltip="Required slots to utilize this module or system on your chassis." for="mech_system_slots_req">SLOTS REQ.:</label>
-                        <input type="number" name="attr_mech_system_slots_req" id="mech_system_slots_req" />
-                    </div>
-                    <div class="tooltip-slide">
-                        <label data-label-tooltip="Sale value of this module or system." for="mech_system_salvage_value">SALVAGE VAL.:</label>
-                        <input type="number" name="attr_mech_system_salvage_value" id="mech_system_salvage_value" />
-                    </div>
-                </div>
-                <div>
-                    <label data-label-tooltip="Description of the module or system, including any actions, additional bonuses provided, or possible nuclear rammifications from use." for="mech_system_description">Description:</label>
-                    <textarea name="attr_mech_system_description" id="mech_system_description">
-                    </textarea>
-                </div>
-            </div>
-        </fieldset>
-    </div>
-</div>
-
-<div class="sheet-cargo sheet-stats">
-    <div class="sheet-hp sheet-cargo-stats">
-        <span>
-            <input type="hidden" name="attr_cargo_over" id="cargo_over"/>
-            <label data-label-tooltip="Your cargo load calculated from your current listed cargo.">LOAD:</label>
-            <span name="attr_cargo_total" class="cargo-count"></span>
-        </span>
-        /
-        <span>
-            <label data-label-tooltip="Your mech's cargo cap - the max capacity for what your mech can carry. Generally the total Salvage Value of cargo = how many slots it will take up." for="hp_max">MAX:</label>
-            <span name="attr_mech_cargo_cap"></span>
-        </span>
-    </div>
-</div>
-<div class="sheet-cargo">
-    <div class="cargo-wrapper">
-        <h2>Cargo</h2>
-        <fieldset class="repeating_cargo">
-            <div class="sheet-cargo-item">
-                <div class="cargo-item">
-                    <div>
-                        <label data-label-tooltip="The name of the piece of Cargo in your mech's cargo hold." for="cargoName">NAME:</label>
-                        <input id="cargoName" type="text" name="attr_cargo_name" placeholder="Cargo Name" value=""/>
-                    </div>
-                    <div>
-                        <label data-label-tooltip="The cargo slots taken up by the cargo. Mech chassis and parts' savlage value = the amount of slots it takes up." for="amountOfCargo">SLOTS:</label>
-                        <input id="amountOfCargo" type="number" name="attr_cargo_count" placeholder="#" min="0"/>
-                    </div>
-                    <div>
-                        <label data-label-tooltip="The salvage value of the cargo in your mech's cargo hold." for="valueOfCargo">VALUE:</label>
-                        <input id="valueOfCargo" type="number" name="attr_cargo_value" placeholder="#" min="0"/>
-                    </div>
-                </div>
-                <div>
-                    <label class="cargo-description" data-label-tooltip="Description of the Cargo your mech is carrying." for="cargoItemDescription">DESCRIPTION:</label>
-                    <textarea id="cargoItemDescription" name="attr_cargo_description" placeholder="Description"></textarea>
-                </div>
-            </div>
-        </fieldset>
-    </div>
-</div>
