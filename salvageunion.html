@@ -422,24 +422,28 @@
     <div class="sheet-template-container">
         <div class="template-system-module-header">
             <h3>{{name}}</h3>
-            <h4>{{Type}}</h4>
+            <div>
+                <h4 title="Energy Point Cost" class="template-ep-chevron">{{EP}} EP</h4>
+                <h4>{{Type}}</h4>
+            </div>
         </div>
         <div class="template-system-module-body">
             <div class="template-system-module-tags">
-                <h4 class="template-ep-chevron">{{EP}} EP</h4>
-                <h4 class="template-tags">{{Tags}}</h4>
+                <h4 title="Tags" class="template-tags">{{Tags}}</h4>
             </div>
-            <div class="template-system-module-techlvl">
-                <h4>Tech Lvl: {{TechLevel}}</h4>
-            </div>
-            <div class="template-system-module-slots">
-                <h4>Slots: {{SlotsRequirement}}</h4>
-            </div>
-            <div class="template-system-module-salvagevalue">
-                <h4>Salvage Value: {{SalvageValue}}</h4>
+            <div class="system-module-meta">
+                <div class="template-system-module-techlvl">
+                    <h4 title="Tech Level">T{{TechLevel}}</h4>
+                </div>
+                <div class="template-system-module-slots">
+                    <h4 title="Slots Required">{{SlotsRequirement}}</h4>
+                </div>
+                <div class="template-system-module-sv">
+                    <h4 title="Salvage Value">{{SalvageValue}}</h4>
+                </div>
             </div>
             <div class="template-system-module-description">
-                <h4>{{Description}}</h4> 
+                <h4 title="Description">{{Description}}</h4> 
             </div>
         </div>
     </div>

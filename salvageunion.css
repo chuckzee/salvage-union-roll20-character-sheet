@@ -632,8 +632,8 @@ input#cargo_over[value="1"] ~ span {
     right: -13px;
     height: 0px;
     width: 0px;
-    border-top: solid 13px transparent;
-    border-left: solid 13px #3e3e3e;
+    border-top: solid 13.5px transparent;
+    border-left: solid 13.5px #3e3e3e;
     border-bottom: solid 13px transparent;
     display: block;
 }
@@ -688,7 +688,14 @@ input#cargo_over[value="1"] ~ span {
 
 .sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-header {
     background-color: #A54733;
-    padding: 6px;
+    padding: 8px;
+}
+
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-header > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 8px;
 }
 
 .sheet-rolltemplate-salvageunion-inventory .sheet-inventory-roll-template-container {
@@ -706,6 +713,63 @@ input#cargo_over[value="1"] ~ span {
 
 .sheet-rolltemplate-salvageunion-inventory .sheet-roller-inventory-description h4 {
     font-size: 15px;
+}
+
+.sheet-rolltemplate-salvageunion-systems h4.sheet-template-tags {
+    position: relative;
+    width: fit-content;
+    background-color: #3e3e3e;
+    color: white;
+    padding: 8px;
+    font-family: "Spline Sans Mono", monospace;
+}
+
+.sheet-rolltemplate-salvageunion-systems .sheet-system-module-meta {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+}
+
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-sv > h4,
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-slots > h4,
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-techlvl > h4 {
+    background-color: #3e3e3e;
+    border-radius: 4px;
+    color: white;
+    padding: 4px 5px;
+    position: relative;
+    font-family: "Spline Sans Mono", monospace;
+}
+
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-slots > h4 {
+    display: block;
+    height: 23px;
+    width: 20px;
+    border: inherit;
+    position: relative;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    transform: rotate(0deg);
+    border-radius: 0px 0 0 0.25em;
+    z-index: 17;
+    color: white;
+    background-color: #3e3e3e;
+    text-align: center;
+    padding-top: 0px;
+    line-height: 34px;
+}
+
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-sv > h4 {
+    color: white;
+    position: relative;
+    aspect-ratio: 1;
+    clip-path: polygon(100% 50%,91.53% 61.13%,93.3% 75%,80.41% 80.41%,75% 93.3%,61.13% 91.53%,50% 100%,38.87% 91.53%,25% 93.3%,19.59% 80.41%,6.7% 75%,8.47% 61.13%,0% 50%,8.47% 38.87%,6.7% 25%,19.59% 19.59%,25% 6.7%,38.87% 8.47%,50% 0%,61.13% 8.47%,75% 6.7%,80.41% 19.59%,93.3% 25%,91.53% 38.87%);  
+    padding: 4px 10px;
+    line-height: 19px;
+}
+
+.sheet-rolltemplate-salvageunion-systems .sheet-template-system-module-description h4 {
+    padding: 8px;
+    font-family: "Spline Sans Mono", monospace;
 }
 
 /* hide and show repeater sections with the css trick */
